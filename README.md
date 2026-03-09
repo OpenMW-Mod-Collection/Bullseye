@@ -6,16 +6,22 @@
 
 ### Lua
 
-- Marksman debuff when moving
-- Marksman buff when sneaking
-- Marksman debuff in a bad weather
-- Attack distance multiplier (positive and negative)
-- Headshot damage multiplier
-- Fatigue drain for holding the bowstring
+- ~~Marksman debuff when moving~~
+- ~~Marksman buff when sneaking~~
+- Attack distance multiplier (positive and negative)        # Needs testing
+- Headshot damage multiplier                                # Needs testing
+- ~~[Bows] Fatigue drain for holding the string~~
+- ~~[Crossbows] Fatigue drain for reloading~~
+- Custom chance of retrieving the ammo on hitting an enemy  # Needs testing
+  - Set GMST to 0
+  - Bows/crossbows - 25%
+  - Thrown - 75%
+- Hostile NPCs aggro if arrow misses them, but hits something nearby [Arrow Stick dependency]
 
 ### GMST
 
-- Increased projectile speed
+- Projectile speed
+- Projectile recovery chance
 
 ## Features in details
 
@@ -27,7 +33,7 @@ Safe to install, update or delete mid-playthrough.
 
 Compatible with any mods.
 
-### Mods that should not be used alongside Bullseye
+### Soft Incompatibilities
 
 - [Headshots](https://www.nexusmods.com/morrowind/mods/57406) by me - Already implemented here
 
