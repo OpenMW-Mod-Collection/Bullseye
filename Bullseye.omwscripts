@@ -1,5 +1,6 @@
 NPC, CREATURE: scripts/Bullseye/actor.lua
 PLAYER: scripts/Bullseye/player.lua
+GLOBAL: scripts/Bullseye/global.lua
 
 MENU: scripts/Bullseye/settingsMenu.lua
 GLOBAL: scripts/Bullseye/settingsGlobal.lua

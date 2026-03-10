@@ -1,6 +1,9 @@
 local self = require("openmw.self")
 local I = require("openmw.interfaces")
 local time = require("openmw_aux.time")
+local storage = require("openmw.storage")
+
+local sectionPlayer = storage.globalSection("SettingsBullseye_player")
 
 MovementStatuses = {
     idling   = "idling",
@@ -11,10 +14,14 @@ MovementStatuses = {
 local movementEffect = {
     [MovementStatuses.idling] = function() end,
     [MovementStatuses.moving] = function(marksman, direction)
-        marksman.modifier = marksman.modifier - 20 * direction
+        marksman.modifier = marksman.modifier
+            - sectionPlayer:get("movementDebuff")
+            * direction
     end,
     [MovementStatuses.sneaking] = function(marksman, direction)
-        marksman.modifier = marksman.modifier + 20 * direction
+        marksman.modifier = marksman.modifier
+            + sectionPlayer:get("sneakBuff")
+            * direction
     end,
 }
 
@@ -52,12 +59,14 @@ end
 
 local function drainFatigueBowstring(dt)
     local fatigue = self.type.stats.dynamic.fatigue(self)
-    fatigue.current = math.max(0, fatigue.current - 10 * dt)
+    fatigue.current = math.max(0,
+        fatigue.current - sectionPlayer:get("bowFatigueDrainRate") * dt)
 end
 
 local function drainFatigueReload(dt)
     local fatigue = self.type.stats.dynamic.fatigue(self)
-    fatigue.current = math.max(0, fatigue.current - 25 * dt)
+    fatigue.current = math.max(0,
+        fatigue.current - sectionPlayer:get("crossbowFatigueDrainRate") * dt)
 end
 
 local function onUpdate(dt)
@@ -88,7 +97,9 @@ end)
 I.AnimationController.addTextKeyHandler("bowandarrow", function(groupname, key)
     if key == "shoot max attack" then
         bowstringHeld = true
-        time.newGameTimer(1, bowstringHeldTooLongCallback)
+        time.newGameTimer(
+            sectionPlayer:get("bowFatigueDrainDelay"),
+            bowstringHeldTooLongCallback)
     elseif key == "shoot min hit" or key == "unequip start" then
         bowstringHeld = false
         bowstringHeldTooLong = false

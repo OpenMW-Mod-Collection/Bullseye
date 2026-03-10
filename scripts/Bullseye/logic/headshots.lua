@@ -1,5 +1,7 @@
 local types = require("openmw.types")
 
+require("scripts.Bullseye.utils.utils")
+
 local whitelistedCreatureTypes = {
     [types.Creature.TYPE.Humanoid] = true,
     [types.Creature.TYPE.Daedra]   = true,
@@ -36,17 +38,13 @@ local blacklistedModels = {
     ["undeadwolf_2"] = true,
 }
 
-local function extractModelName(path)
-    return path:match("([^/\\]+)%.%w+$")
-end
-
 local function headshottable(victim)
     if types.NPC.objectIsInstance(victim) then
         return true
     end
 
     local victimRecord = victim.type.records[victim.recordId]
-    if blacklistedModels[extractModelName(victimRecord.model)] then
+    if blacklistedModels[ExtractFileName(victimRecord.model)] then
         return false
     end
 
@@ -54,7 +52,7 @@ local function headshottable(victim)
         return true
     end
 
-    return whitelistedModels[extractModelName(victimRecord.model)]
+    return whitelistedModels[ExtractFileName(victimRecord.model)]
 end
 
 function HeadshotSuccessful(victim, attackPos)

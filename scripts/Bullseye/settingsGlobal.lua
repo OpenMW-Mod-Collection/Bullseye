@@ -1,103 +1,222 @@
 local I = require("openmw.interfaces")
 
 I.Settings.registerGroup {
-    key = 'SettingsBullseye_hitChance',
+    key = 'SettingsBullseye_player',
     page = 'Bullseye',
     l10n = 'Bullseye',
-    name = 'hitChance_groupName',
+    name = 'player_groupName',
     permanentStorage = true,
     order  = 1,
     settings = {
         {
             key = 'movementDebuff',
             name = 'movementDebuff_name',
+            description = 'movementDebuff_desc',
+            renderer = 'number',
+            default = 15,
+        },
+        {
+            key = 'sneakBuff',
+            name = 'sneakBuff_name',
+            description = 'sneakBuff_desc',
+            renderer = 'number',
+            default = 10,
+        },
+        {
+            key = 'bowFatigueDrainDelay',
+            name = 'bowFatigueDrainDelay_name',
+            description = 'bowFatigueDrainDelay_desc',
+            renderer = 'number',
+            default = 1,
+            min = 0,
+        },
+        {
+            key = 'bowFatigueDrainRate',
+            name = 'bowFatigueDrainRate_name',
+            description = 'bowFatigueDrainRate_desc',
             renderer = 'number',
             default = 10,
             min = 0,
         },
         {
-            key = 'sneakBuff',
-            name = 'sneakBuff_name',
+            key = 'crossbowFatigueDrainRate',
+            name = 'crossbowFatigueDrainRate_name',
+            description = 'crossbowFatigueDrainRate_desc',
             renderer = 'number',
-            default = 20,
-            min = 0,
-        },
-        {
-            key = 'fatigueDrainRate',
-            name = 'fatigueDrainRate_name',
-            renderer = 'number',
-            default = 20,
-            min = 0,
-        },
-        {
-            key = 'badWeatherDebuff',
-            name = 'badWeatherDebuff_name',
-            renderer = 'number',
-            default = 20,
+            default = 25,
             min = 0,
         },
     }
 }
 
 I.Settings.registerGroup {
-    key = 'SettingsBullseye_damage',
+    key = 'SettingsBullseye_damageMult',
     page = 'Bullseye',
     l10n = 'Bullseye',
-    name = 'damage_groupName',
+    name = 'damageMult_groupName',
+    description = "damageMult_groupDesc",
     permanentStorage = true,
     order = 2,
     settings = {
         {
-            key = 'distance',
-            name = 'distance_name',
+            key = 'baseMult',
+            name = 'baseMult_name',
             renderer = 'number',
             default = 1,
+        },
+        {
+            key = 'defaultDmgMinDistance',
+            name = 'defaultDmgMinDistance_name',
+            description = "defaultDmgMinDistance_desc",
+            renderer = 'number',
+            default = 800,
             min = 0,
         },
         {
-            key = 'distanceRange',
-            name = 'distanceRange_name',
+            key = 'defaultDmgMaxDistance',
+            name = 'defaultDmgMaxDistance_name',
+            description = "defaultDmgMaxDistance_desc",
+            renderer = 'number',
+            default = 1500,
+            min = 0,
+        },
+        {
+            key = 'distanceDamageFalloff',
+            name = 'distanceDamageFalloff_name',
+            description = "distanceDamageFalloff_desc",
             renderer = 'number',
             default = 1,
             min = 0,
         },
         {
             key = 'distanceDamageBuildup',
-            name = 'istanceDamageBuildup_name',
+            name = 'distanceDamageBuildup_name',
+            description = "distanceDamageBuildup_desc",
             renderer = 'number',
-            default = 1,
-            min = 0,
-        },
-        {
-            key = 'distanceDamageFalloff',
-            name = 'distanceDamageFalloff_name',
-            renderer = 'number',
-            default = 1,
+            default = .25,
             min = 0,
         },
         {
             key  = 'headshotMultiplier',
             name = 'headshotMultiplier_name',
+            description = "headshotMultiplier_desc",
             renderer = 'number',
-            default = 1.5,
+            default = .5,
             min = 0,
         },
-    }
-}
-
-I.Settings.registerGroup {
-    key = 'SettingsBullseye_debug',
-    page = 'Bullseye',
-    l10n = 'Bullseye',
-    name = 'debug_groupName',
-    permanentStorage = true,
-    order = 100,
-    settings = {
         {
-            key = 'enableMessages',
-            name = 'enableMessages_name',
+            key  = 'maxTotalMult',
+            name = 'maxTotalMult_name',
+            renderer = 'number',
+            default = 3,
+            min = 0,
+        },
+        {
+            key  = 'minTotalMult',
+            name = 'minTotalMult_name',
+            renderer = 'number',
+            default = .25,
+            min = 0,
+        },
+        {
+            key = 'showMultMessage',
+            name = 'showMultMessage_name',
             renderer = 'checkbox',
             default = true,
         },
     }
 }
+
+I.Settings.registerGroup {
+    key = 'SettingsBullseye_ammoRetrieval',
+    page = 'Bullseye',
+    l10n = 'Bullseye',
+    name = 'ammoRetrieval_groupName',
+    description = "ammoRetrieval_groupDesc",
+    permanentStorage = true,
+    order = 3,
+    settings = {
+        {
+            key  = 'ammoRetrievalChance',
+            name = 'ammoRetrievalChance_name',
+            renderer = 'number',
+            default = .25,
+            min = 0,
+            max = 1,
+        },
+        {
+            key  = 'thrownRetrievalChance',
+            name = 'thrownRetrievalChance_name',
+            renderer = 'number',
+            default = .75,
+            min = 0,
+            max = 1,
+        },
+        {
+            key = 'retrieveEnchantedProjectiles',
+            name = 'retrieveEnchantedProjectiles_name',
+            description = "retrieveEnchantedProjectiles_desc",
+            renderer = 'checkbox',
+            default = false,
+        },
+    }
+}
+
+I.Settings.registerGroup {
+    key = 'SettingsBullseye_nearHit',
+    page = 'Bullseye',
+    l10n = 'Bullseye',
+    name = 'nearHit_groupName',
+    description = "nearHit_groupDesc",
+    permanentStorage = true,
+    order = 100,
+    settings = {
+        {
+            key = 'nearHitAggroEnabled',
+            name = 'nearHitAggroEnabled_name',
+            description = "nearHitAggroEnabled_desc",
+            renderer = 'checkbox',
+            default = true,
+        },
+        {
+            key  = 'aggroDistance',
+            name = 'aggroDistance_name',
+            description = "aggroDistance_desc",
+            renderer = 'number',
+            default = 200,
+            min = 0,
+        },
+        {
+            key  = 'fightValueIncrease',
+            name = 'fightValueIncrease_name',
+            description = "fightValueIncrease_desc",
+            renderer = 'number',
+            default = 20,
+            min = 0,
+        },
+        {
+            key  = 'dispositionDrop',
+            name = 'dispositionDrop_name',
+            description = "dispositionDrop_desc",
+            renderer = 'number',
+            default = 25,
+            min = 0,
+        },
+    }
+}
+
+if not I.ArrowStick then
+    local settingKeys = {
+        "nearHitAggroEnabled",
+        "aggroDistance",
+        "fightValueIncrease",
+        "dispositionDrop",
+    }
+    for _, settingKey in ipairs(settingKeys) do
+        I.Settings.updateRendererArgument(
+            "SettingsBullseye_nearHit",
+            settingKey,
+            { disabled = true }
+        )
+    end
+end

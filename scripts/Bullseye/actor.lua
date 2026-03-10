@@ -1,31 +1,38 @@
 local I = require("openmw.interfaces")
 local types = require("openmw.types")
 local self = require("openmw.self")
+local core = require("openmw.core")
+local storage = require("openmw.storage")
 
 require("scripts.Bullseye.logic.headshots")
 
-local function retrieveAmmo(item, chance)
+local sectionDamageMult = storage.globalSection("SettingsBullseye_damageMult")
+local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetrieval")
+local sectionNearHit = storage.globalSection("SettingsBullseye_nearHit")
+
+local function retrieveAmmo(itemRecord, chance)
     if math.random() > chance then return end
 
     -- enchanted ammo cannot be recovered
-    local itemRecord = item.type.records[item.recordId]
-    local retrieveEnchantedAmmo = false
+    local retrieveEnchantedAmmo = sectionAmmoRetrieval:get("retrieveEnchantedProjectiles")
     if not retrieveEnchantedAmmo and itemRecord.enchant then return end
 
-    item:moveInto(self)
+    core.sendGlobalEvent("Bullseye_retrieveAmmo", {
+        actor = self,
+        itemRecordId = itemRecord.id
+    })
 end
 
-local function getDistanceModifier(playerPos)
-    local distance = (playerPos - self.position):length()
-    local maxDist = 3000
-    local minDist = 800
+local function getDistanceModifier(distance)
+    local maxDist = sectionDamageMult:get("defaultDmgMaxDistance")
+    local minDist = sectionDamageMult:get("defaultDmgMinDistance")
 
-    if minDist <= distance < maxDist then
+    if minDist <= distance and distance < maxDist then
         return 0
     elseif distance < minDist then
-        return distance / 1000 * .25
+        return -1 * (minDist - distance) / 1000 * sectionDamageMult:get("distanceDamageFalloff")
     elseif maxDist <= distance then
-        return distance / 1000 * .25 * (-1)
+        return (distance - maxDist) / 1000 * sectionDamageMult:get("distanceDamageBuildup")
     end
 end
 
@@ -40,17 +47,65 @@ local function hitHandler(attack)
     local weaponRecord = attack.weapon.type.records[attack.weapon.recordId]
     local isThrown = weaponRecord.type == types.Weapon.TYPE.MarksmanThrown
 
-    local ammoToRetrieve = isThrown and attack.weapon or attack.ammo
-    local retrievalChance = isThrown and .25 or .75
+    local ammoToRetrieve = isThrown
+        and types.Weapon.records[attack.weapon]
+        or types.Weapon.records[attack.ammo]
+    local retrievalChance = isThrown
+        and sectionAmmoRetrieval:get("thrownRetrievalChance")
+        or sectionAmmoRetrieval:get("ammoRetrievalChance")
     retrieveAmmo(ammoToRetrieve, retrievalChance)
 
-    local distMod = isThrown and 0 or getDistanceModifier(attack.attacker.position)
-    local headMod = HeadshotSuccessful(self, attack.hitPos) and .5 or 0
-    local damageModifier = 1 + distMod + headMod
-    damageModifier = math.max(.5, damageModifier)
-    damageModifier = math.min(3, damageModifier)
+    local distance = (attack.attacker.position - self.position):length()
+    local distMod = isThrown and 0 or getDistanceModifier(distance)
+    local headMod = HeadshotSuccessful(self, attack.hitPos)
+        and sectionDamageMult:get("headshotMultiplier")
+        or 0
+    local damageModifier = sectionDamageMult:get("baseMult") + distMod + headMod
+    damageModifier = math.max(sectionDamageMult:get("minTotalMult"), damageModifier)
+    damageModifier = math.min(sectionDamageMult:get("maxTotalMult"), damageModifier)
 
-    attack.damage = attack.damage * damageModifier
+    if sectionDamageMult:get("showMultMessage") then
+        local headshotLine = headMod == 0 and ""
+            or string.format("\nHeadshot mult: %.2fx", headMod)
+        attack.attacker:sendEvent("ShowMessage", {
+            message = string.format(
+                "[Bullseye]" ..
+                "\nShot distance: %d units" ..
+                "\nDistance mult: %.2fx" ..
+                headshotLine ..
+                "\nFinal damage mult: %.2f",
+                distance, distMod, damageModifier
+            )
+        })
+    end
+
+    attack.damage.health = attack.damage.health * damageModifier
+end
+
+local function modifyFight(eventData)
+    -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
+    local fight = self.type.stats.ai.fight(self)
+    fight.modifier = fight.modifier + eventData.amount
+    self.type.modifyBaseDisposition(
+        self,
+        eventData.target,
+        sectionNearHit:get("dispositionDrop") * (-1))
+
+    if fight.modified > 100 then
+        I.AI.startPackage({
+            type = "Combat",
+            cancelOther = false,
+            target = eventData.target
+        })
+    else
+        core.sendGlobalEvent("Bullseye_sayArrowNearlyHit", self)
+    end
 end
 
 I.Combat.addOnHitHandler(hitHandler)
+
+return {
+    eventHandlers = {
+        Bullseye_modifyFight = modifyFight,
+    }
+}

@@ -1,2 +1,70 @@
 page_name: Bullseye - Marksman Overhaul
-page_description: You know what to do.
+page_description: |
+  Makes Marksman gameplay more tactical.
+
+  All changes are one-sided and affect only the player!
+
+player_groupName: Player
+movementDebuff_name: Moving Penalty
+movementDebuff_desc: Marksman skill penalty applied while moving with a ranged weapon.
+sneakBuff_name: Sneaking Bonus
+sneakBuff_desc: Marksman skill bonus applied while sneaking. Overrides the movement penalty.
+bowFatigueDrainDelay_name: Bowstring Hold Delay (sec)
+bowFatigueDrainDelay_desc: Time before fatigue begins draining while holding a drawn bow.
+bowFatigueDrainRate_name: Bowstring Fatigue Drain (fatigue/sec)
+bowFatigueDrainRate_desc: Fatigue drain while holding a drawn bow. Starts only after the delay.
+crossbowFatigueDrainRate_name: Crossbow Reload Fatigue Drain (fatigue/sec)
+crossbowFatigueDrainRate_desc: Usually this animation takes about 1 second.
+
+damageMult_groupName: Damage Multiplier
+damageMult_groupDesc: |
+  Final damage multiplier formula is as follows:
+
+  BaseMult + DistanceMult + HeadshotMult
+baseMult_name: Base Multiplier
+defaultDmgMinDistance_name: Mult Falloff Distance
+defaultDmgMinDistance_desc: >
+  Distance below which the damage multiplier begins decreasing.
+  For reference, the River Odai is around 1000 units long.
+defaultDmgMaxDistance_name: Mult Increase Distance
+defaultDmgMaxDistance_desc: Distance after which the damage multiplier begins increasing.
+distanceDamageFalloff_name: Mult Falloff per 1000 Units
+distanceDamageFalloff_desc: Multiplier decrease for every 1000 units below the falloff distance.
+distanceDamageBuildup_name: Mult Increase per 1000 Units
+distanceDamageBuildup_desc: Multiplier increase for every 1000 units beyond the increase distance.
+headshotMultiplier_name: Headshot Multiplier
+headshotMultiplier_desc: >
+  Head is considered to be the top 85% of the actor bounding box.
+  Not every actor can be headshot, but the list includes:
+  NPCs, humanoids, daedra, undead, and some special white- and blacklisted cases.
+maxTotalMult_name: Max Total Mult
+minTotalMult_name: Min Total Mult
+showMultMessage_name: Show Multiplier Messages
+
+ammoRetrieval_groupName: Projectile Retrieval
+ammoRetrieval_groupDesc: >
+  Controls how often projectiles are stored in the victim's inventory.
+  Overrides the vanilla behavior.
+ammoRetrievalChance_name: Arrow and Bolt Retrieval Chance
+thrownRetrievalChance_name: Thrown Weapon Retrieval Chance
+retrieveEnchantedProjectiles_name: Retrieve Enchanted Projectiles
+retrieveEnchantedProjectiles_desc: In vanilla they cannot be retrieved.
+
+nearHit_groupName: Near Hit
+nearHit_groupDesc: >
+  Requires the Arrow Stick mod to be installed. Load order does not matter.
+  If this section is disabled, Arrow Stick is not installed and these features will not work.
+nearHitAggroEnabled_name: NPCs React to Near Hits
+nearHitAggroEnabled_desc: >
+  Triggers only if terrain or an object near the actor is hit,
+  not if the projectile simply flies past them or hits someone else.
+aggroDistance_name: Near Hit Distance
+aggroDistance_desc: Distance from the actor within which a projectile impact counts as a near hit.
+fightValueIncrease_name: Fight Value Increase
+fightValueIncrease_desc: >
+  Increase to the NPC's Fight value after a near hit.
+  Non-hostile NPCs usually start at 0-35.
+  At 80 they may attack if you approach.
+  At 100 they will attack on sight.
+dispositionDrop_name: Disposition Drop
+dispositionDrop_desc: Disposition penalty applied after triggering a near-hit reaction.
