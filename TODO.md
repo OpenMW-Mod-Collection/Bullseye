@@ -10,7 +10,6 @@
 
 ### Minor things
 
-- Toggle for triggering non-hostile enemies with misses
 - Structure code a bit better
 - Add a proper Arrow Stick check
 - Setting for the head height for headshots

@@ -15,7 +15,8 @@ Your goal is simple: **keep your distance and land your shots.**
 All Lua changes affect **the player only**.
 
 **Combat Mechanics**
-- Damage multiplier based on attack distance *(does not affect thrown weapons)*
+- Damage multiplier based on attack distance  
+  *(does not affect thrown weapons)*
 - Headshot damage multiplier
 - Marksman debuff while moving
 - Marksman buff while sneaking

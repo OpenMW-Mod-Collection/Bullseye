@@ -28,23 +28,15 @@ local function arrowLanded(eventData)
             goto continue
         end
 
-        actor:sendEvent("Bullseye_modifyFight", {
-            amount = sectionNearHit:get("fightValueIncrease"),
-            target = player,
-        })
+        actor:sendEvent("Bullseye_modifyFight")
 
         ::continue::
     end
 end
 
-local function sayArrowNearlyHit(actor)
-    
-end
-
 return {
     eventHandlers = {
         Bullseye_retrieveAmmo = retrieveAmmo,
-        Bullseye_sayArrowNearlyHit = sayArrowNearlyHit,
         -- requires Arrow Stick mod to work
         placeArrow = arrowLanded,
     }

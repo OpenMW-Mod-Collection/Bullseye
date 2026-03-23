@@ -82,24 +82,14 @@ local function hitHandler(attack)
     attack.damage.health = attack.damage.health * damageModifier
 end
 
-local function modifyFight(eventData)
+local function modifyFight()
     -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
     local fight = self.type.stats.ai.fight(self)
-    fight.modifier = fight.modifier + eventData.amount
-    self.type.modifyBaseDisposition(
-        self,
-        eventData.target,
-        sectionNearHit:get("dispositionDrop") * (-1))
-
-    if fight.modified > 100 then
-        I.AI.startPackage({
-            type = "Combat",
-            cancelOther = false,
-            target = eventData.target
-        })
-    else
-        core.sendGlobalEvent("Bullseye_sayArrowNearlyHit", self)
+    -- TODO test
+    if fight.base < 70 then
+        return
     end
+    fight.modifier = fight.modifier + 100
 end
 
 I.Combat.addOnHitHandler(hitHandler)

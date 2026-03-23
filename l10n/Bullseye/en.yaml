@@ -60,11 +60,3 @@ nearHitAggroEnabled_desc: >
   not if the projectile simply flies past them or hits someone else.
 aggroDistance_name: Near Hit Distance
 aggroDistance_desc: Distance from the actor within which a projectile impact counts as a near hit.
-fightValueIncrease_name: Fight Value Increase
-fightValueIncrease_desc: >
-  Increase to the NPC's Fight value after a near hit.
-  Non-hostile NPCs usually start at 0-35.
-  At 80 they may attack if you approach.
-  At 100 they will attack on sight.
-dispositionDrop_name: Disposition Drop
-dispositionDrop_desc: Disposition penalty applied after triggering a near-hit reaction.

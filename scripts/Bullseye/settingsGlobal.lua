@@ -186,22 +186,6 @@ I.Settings.registerGroup {
             default = 200,
             min = 0,
         },
-        {
-            key  = 'fightValueIncrease',
-            name = 'fightValueIncrease_name',
-            description = "fightValueIncrease_desc",
-            renderer = 'number',
-            default = 20,
-            min = 0,
-        },
-        {
-            key  = 'dispositionDrop',
-            name = 'dispositionDrop_name',
-            description = "dispositionDrop_desc",
-            renderer = 'number',
-            default = 25,
-            min = 0,
-        },
     }
 }
 
