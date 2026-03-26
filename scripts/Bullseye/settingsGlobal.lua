@@ -189,18 +189,18 @@ I.Settings.registerGroup {
     }
 }
 
-if not I.ArrowStick then
-    local settingKeys = {
-        "nearHitAggroEnabled",
-        "aggroDistance",
-        "fightValueIncrease",
-        "dispositionDrop",
-    }
-    for _, settingKey in ipairs(settingKeys) do
-        I.Settings.updateRendererArgument(
-            "SettingsBullseye_nearHit",
-            settingKey,
-            { disabled = true }
-        )
-    end
-end
+-- if not I.ArrowStick then
+--     local settingKeys = {
+--         "nearHitAggroEnabled",
+--         "aggroDistance",
+--         "fightValueIncrease",
+--         "dispositionDrop",
+--     }
+--     for _, settingKey in ipairs(settingKeys) do
+--         I.Settings.updateRendererArgument(
+--             "SettingsBullseye_nearHit",
+--             settingKey,
+--             { disabled = true }
+--         )
+--     end
+-- end

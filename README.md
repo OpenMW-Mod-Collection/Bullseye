@@ -12,7 +12,7 @@ Your goal is simple: **keep your distance and land your shots.**
 
 ### Lua Mechanics
 
-All Lua changes affect **the player only**.
+All Lua changes affect only the player.
 
 **Combat Mechanics**
 - Damage multiplier based on attack distance  
@@ -34,8 +34,13 @@ All Lua changes affect **the player only**.
 - Missed arrows can alert nearby hostile NPCs
 - Missed arrows can turn a non-hostile NPCs hostile
 
-**GMST Edits**
-- asd
+### GMST Edits
+
+- fProjectileMinSpeed: 400 -> 1000
+- fProjectileMaxSpeed: 3000 -> 8000
+- fThrownWeaponMinSpeed: 300 -> 1000
+- fThrownWeaponMaxSpeed: 1000 -> 4000
+- fProjectileThrownStoreChance: 25 -> 0. It's entirely replaced with Lua
 
 Every value is configurable.
 

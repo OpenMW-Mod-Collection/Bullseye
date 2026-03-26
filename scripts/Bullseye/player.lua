@@ -2,8 +2,10 @@ local self = require("openmw.self")
 local I = require("openmw.interfaces")
 local time = require("openmw_aux.time")
 local storage = require("openmw.storage")
+local types = require("openmw.types")
 
 local sectionPlayer = storage.globalSection("SettingsBullseye_player")
+local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetrieval")
 
 MovementStatuses = {
     idling   = "idling",
@@ -34,9 +36,9 @@ local reloadingCrossbow = false
 local function updateMovementEffect()
     local stance       = self.type.getStance(self)
     local weaponStance = stance == self.type.STANCE.Weapon
-    if not weaponStance then return end
-
     local weapon     = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
+    if not weaponStance or not weapon then return end
+
     local weaponType = weapon.type.records[weapon.recordId].type
     local eqBow      = weaponType == weapon.type.TYPE.MarksmanBow
     local eqCrossbow = weaponType == weapon.type.TYPE.MarksmanCrossbow
@@ -67,6 +69,26 @@ local function drainFatigueReload(dt)
     local fatigue = self.type.stats.dynamic.fatigue(self)
     fatigue.current = math.max(0,
         fatigue.current - sectionPlayer:get("crossbowFatigueDrainRate") * dt)
+end
+
+-- TODO move it into a separate function for ammo retrieval for both sides to use
+local function hitHandler(attack)
+    if not attack.successful
+        or attack.sourceType ~= I.Combat.ATTACK_SOURCE_TYPES.Ranged
+    then
+        return
+    end
+
+    local isThrown = attack.weapon.id == "@0x0"
+        -- HOW THE FUCK
+        or types.Weapon.records[attack.weapon.recordId].type == types.Weapon.TYPE.MarksmanThrown
+
+    local ammoToRetrieve = types.Weapon.records[attack.ammo]
+    local retrievalChance = isThrown
+        and sectionAmmoRetrieval:get("thrownRetrievalChance")
+        or sectionAmmoRetrieval:get("ammoRetrievalChance")
+    RetrieveAmmo(self, ammoToRetrieve, retrievalChance,
+        sectionAmmoRetrieval:get("retrieveEnchantedProjectiles"))
 end
 
 local function onUpdate(dt)
@@ -113,6 +135,8 @@ I.AnimationController.addTextKeyHandler("crossbow", function(groupname, key)
         reloadingCrossbow = false
     end
 end)
+
+I.Combat.addOnHitHandler(hitHandler)
 
 return {
     engineHandlers = {

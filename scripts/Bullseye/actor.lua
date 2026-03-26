@@ -1,27 +1,13 @@
 local I = require("openmw.interfaces")
 local types = require("openmw.types")
 local self = require("openmw.self")
-local core = require("openmw.core")
 local storage = require("openmw.storage")
 
 require("scripts.Bullseye.logic.headshots")
+require("scripts.Bullseye.utils.common")
 
 local sectionDamageMult = storage.globalSection("SettingsBullseye_damageMult")
 local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetrieval")
-local sectionNearHit = storage.globalSection("SettingsBullseye_nearHit")
-
-local function retrieveAmmo(itemRecord, chance)
-    if math.random() > chance then return end
-
-    -- enchanted ammo cannot be recovered
-    local retrieveEnchantedAmmo = sectionAmmoRetrieval:get("retrieveEnchantedProjectiles")
-    if not retrieveEnchantedAmmo and itemRecord.enchant then return end
-
-    core.sendGlobalEvent("Bullseye_retrieveAmmo", {
-        actor = self,
-        itemRecordId = itemRecord.id
-    })
-end
 
 local function getDistanceModifier(distance)
     local maxDist = sectionDamageMult:get("defaultDmgMaxDistance")
@@ -39,34 +25,37 @@ end
 local function hitHandler(attack)
     if not attack.successful
         or attack.sourceType ~= I.Combat.ATTACK_SOURCE_TYPES.Ranged
-        or attack.attacker.type ~= types.Player
     then
         return
     end
 
-    local weaponRecord = attack.weapon.type.records[attack.weapon.recordId]
-    local isThrown = weaponRecord.type == types.Weapon.TYPE.MarksmanThrown
+    local isThrown = attack.weapon.id == "@0x0"
+        -- HOW THE FUCK
+        or types.Weapon.records[attack.weapon.recordId].type == types.Weapon.TYPE.MarksmanThrown
 
-    local ammoToRetrieve = isThrown
-        and types.Weapon.records[attack.weapon]
-        or types.Weapon.records[attack.ammo]
+    local ammoToRetrieve = types.Weapon.records[attack.ammo]
     local retrievalChance = isThrown
         and sectionAmmoRetrieval:get("thrownRetrievalChance")
         or sectionAmmoRetrieval:get("ammoRetrievalChance")
-    retrieveAmmo(ammoToRetrieve, retrievalChance)
+    RetrieveAmmo(self, ammoToRetrieve, retrievalChance,
+        sectionAmmoRetrieval:get("retrieveEnchantedProjectiles"))
+
+    if attack.attacker.type ~= types.Player then
+        return
+    end
 
     local distance = (attack.attacker.position - self.position):length()
     local distMod = isThrown and 0 or getDistanceModifier(distance)
     local headMod = HeadshotSuccessful(self, attack.hitPos)
-        and sectionDamageMult:get("headshotMultiplier")
-        or 0
+        and sectionDamageMult:get("headshotMultiplier") or 0
     local damageModifier = sectionDamageMult:get("baseMult") + distMod + headMod
     damageModifier = math.max(sectionDamageMult:get("minTotalMult"), damageModifier)
     damageModifier = math.min(sectionDamageMult:get("maxTotalMult"), damageModifier)
 
     if sectionDamageMult:get("showMultMessage") then
-        local headshotLine = headMod == 0 and ""
-            or string.format("\nHeadshot mult: %.2fx", headMod)
+        local headshotLine = headMod == 0
+            and "" or string.format("\nHeadshot mult: %.2fx", headMod)
+
         attack.attacker:sendEvent("ShowMessage", {
             message = string.format(
                 "[Bullseye]" ..
