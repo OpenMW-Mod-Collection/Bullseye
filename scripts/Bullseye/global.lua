@@ -1,6 +1,5 @@
 local world = require("openmw.world")
 local types = require("openmw.types")
-local I = require("openmw.interfaces")
 local storage = require("openmw.storage")
 
 local sectionNearHit = storage.globalSection("SettingsBullseye_nearHit")
@@ -12,11 +11,10 @@ local function retrieveAmmo(eventData)
 end
 
 local function arrowLanded(eventData)
-    local aggroEnabled = I.ArrowStick and sectionNearHit:get("nearHitAggroEnabled")
+    local aggroEnabled = sectionNearHit:get("nearHitAggroEnabled")
     if not aggroEnabled then return end
 
     local arrowPos = eventData.position
-    local player = eventData.actor
     for _, actor in ipairs(world.activeActors) do
         local distance = (actor.position - arrowPos):length()
         local isDead = actor.type.isDead(actor)

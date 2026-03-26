@@ -4,24 +4,21 @@ Marksman combat shouldn't feel like melee with extra reach.
 
 *Spiritual successor of my [Headshots](https://www.nexusmods.com/morrowind/mods/57406) mod.*
 
-Archers control the battlefield through **positioning and distance**, while warriors dominate close combat. This mod shifts the focus of ranged combat away from character stats and toward **player skill and positioning**.
-
-Your goal is simple: **keep your distance and land your shots.**
+Archers should control the battlefield through positioning and distance, while warriors should dominate close combat. Your goal is simple: keep your distance and land your shots.
 
 ## Feature List
 
 ### Lua Mechanics
 
-All Lua changes affect only the player.
-
-**Combat Mechanics**
+**Combat Mechanics** *(affects only the player)*
 - Damage multiplier based on attack distance  
   *(does not affect thrown weapons)*
 - Headshot damage multiplier
 - Marksman debuff while moving
 - Marksman buff while sneaking
 
-**Fatigue System**
+**Fatigue System** *(affects only the player)*
+- Bows drain fatigue when drawing the bowstring
 - Bows drain fatigue when holding the bowstring too long
 - Crossbows drain fatigue when reloading
 
@@ -30,70 +27,44 @@ All Lua changes affect only the player.
   - Bows / Crossbows - **25%**
   - Thrown weapons - **75%**
 
-**AI Behavior** *(optional, requires Arrow Stick)*
+**AI Behavior** *(optional, requires [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299))*
 - Missed arrows can alert nearby hostile NPCs
-- Missed arrows can turn a non-hostile NPCs hostile
+
+And, of course, every value is configurable.
 
 ### GMST Edits
 
+**Faster Marksman Projectiles**
 - fProjectileMinSpeed: 400 -> 1000
 - fProjectileMaxSpeed: 3000 -> 8000
 - fThrownWeaponMinSpeed: 300 -> 1000
 - fThrownWeaponMaxSpeed: 1000 -> 4000
-- fProjectileThrownStoreChance: 25 -> 0. It's entirely replaced with Lua
 
-Every value is configurable.
+**Ammo Economy Rebalance** *(since it is replaced with Lua)*
+- fProjectileThrownStoreChance: 25 -> 0
 
-## Core Mechanics
-
-Now for the thought process.
-
-### Distance Matters
-
-Your distance from the target now directly affects **bow and crossbow damage**.
-
-The further away you are (within reason), the more effective your shots become. Closing the gap will reduce their effectiveness.
-
-This encourages you to:
-- find good firing positions
-- maintain distance
-- control enemy approach
-
-Thrown weapons are **not affected** by this mechanic, making them a reliable **mid-range backup** when enemies get too close.
+## Feature Details
 
 ### Headshots
 
-Precision is now rewarded.
-
-Hits to the **upper 85% of an actor's bounding box** count as headshots and grant a **flat damage multiplier bonus**.
-
-Headshots work with any marksman weapon.
-
-Not every creature can be headshot, but most humanoid-looking actors can, including:
+A headshot counts if an actor is hit within the top 85% of their bounding box. Not every creature can be headshot, but most humanoid-looking actors can, including:
 
 - NPCs
-- humanoid creatures
-- daedra
-- undead
-- several supported creature types
+- Creatures that can wield weapons
+- Humanoid creatures
+- Daedra
+- Undead
+- Everyone else who is manually whitelisted
 
-The detection list is mostly dynamic, so some modded creatures might raise false-positives here and there. If you notice something missing, feel free to report it.
-
-### Awareness and Positioning
-
-Marksmen should behave like marksmen.
-
-- Running while shooting makes it **harder to land shots**
-- Sneaking provides **combat benefits**
-- Missing a shot can now **alert nearby NPCs**
-
-A careless arrow might reveal your position - even to non-hostile actors.
+The detection list is mostly dynamic, so some modded creatures might produce false positives from time to time. If you notice something missing, feel free to report it.
 
 ## Compatibility
 
-Safe to install, update or delete mid-playthrough.
+Safe to install, update, or delete mid-playthrough.
 
 Compatible with any mods.
+
+If there is a mod in your modlist that affects the `fProjectileThrownStoreChance` GMST, `BullseyeGMSTs.omwaddon` needs to be loaded after it. While it is not critical, you might experience ammo duplication in corpses. TL;DR: load `BullseyeGMSTs.omwaddon` after any combat-affecting mods or simply last.
 
 ### Soft Incompatibilities
 
@@ -101,11 +72,26 @@ Compatible with any mods.
 
 ### Requirements
 
-- [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) by me and DaisyHasACat - Optional, but recommended
+- [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) by me and DaisyHasACat - Optional, load order doesn't matter
 
-## My Archery Gameplay Setup
+### Supported Mods (Headshot Whitelist)
 
-- asd
+- [Tamriel_Data](https://www.nexusmods.com/morrowind/mods/44537) by PTR Team
+- [OAAB_Data](https://www.nexusmods.com/morrowind/mods/49042) by OAAB_Data Team
+
+### Recommendations
+
+- [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) by me and DaisyHasACat
+- [Sneak Fatigue Drain (OpenMW)](https://www.nexusmods.com/morrowind/mods/58433) by me
+- [Ammo Count HUD (OpenMW)](https://www.nexusmods.com/morrowind/mods/58307) by me
+- [Sneak is Good Now. -- OpenMW](https://www.nexusmods.com/morrowind/mods/58441) by Max Yari
+- [Crossbows Enhanced](https://www.nexusmods.com/morrowind/mods/48586) by Alaisiagae and WHReaper
+- [Smart Ammo for OpenMW-Lua](https://www.nexusmods.com/morrowind/mods/51274) by johnnyhostile
+- [Take Cover (OpenMW)](https://www.nexusmods.com/morrowind/mods/54976) by mym
+- [Cast onStrike Bow and Crossbow (openMW)](https://www.nexusmods.com/morrowind/mods/57329) by ComeBESNIER
+- [UNCALCULATED LEVELED CREATURES FIX AND YOU CAN ACTUALLY GET ENCHANTED ARROWS AFTER LEVEL 5](https://www.nexusmods.com/morrowind/mods/51717) by concit
+- [Enchanter's Quiver - Arrows and Projectiles Enchant Capacity](https://www.nexusmods.com/morrowind/mods/58121) by 6moonless
+- [Bound Balance](https://modding-openmw.gitlab.io/bound-balance/) by johnnyhostile
 
 ## Credits
 
@@ -113,3 +99,4 @@ Compatible with any mods.
 **DaisyHasACat** - Logic behind headshots and initial inspiration ([Ranged Headshot](https://modding-openmw.gitlab.io/ranged-headshot/))  
 **Axemagister** - Inspiration ([N'wah Shooter](https://www.nexusmods.com/morrowind/mods/49657))  
 **Merlord** - Inspiration ([Realistic Archery](https://www.nexusmods.com/morrowind/mods/51473))  
+**Cybvep** - Help with creature headshot whitelist

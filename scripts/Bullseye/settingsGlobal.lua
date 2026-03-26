@@ -1,10 +1,11 @@
 local I = require("openmw.interfaces")
 
 I.Settings.registerGroup {
-    key = 'SettingsBullseye_player',
+    key = 'SettingsBullseye_playerStats',
     page = 'Bullseye',
     l10n = 'Bullseye',
-    name = 'player_groupName',
+    name = 'playerStats_groupName',
+    description = 'playerStats_groupDesc',
     permanentStorage = true,
     order  = 1,
     settings = {
@@ -22,6 +23,26 @@ I.Settings.registerGroup {
             renderer = 'number',
             default = 10,
         },
+    }
+}
+
+I.Settings.registerGroup {
+    key = 'SettingsBullseye_fatigue',
+    page = 'Bullseye',
+    l10n = 'Bullseye',
+    name = 'fatigue_groupName',
+    description = 'fatigue_groupDesc',
+    permanentStorage = true,
+    order  = 2,
+    settings = {
+        {
+            key = 'bowDrawFatigueDrainRate',
+            name = 'bowDrawFatigueDrainRate_name',
+            description = 'bowDrawFatigueDrainRate_desc',
+            renderer = 'number',
+            default = 10,
+            min = 0,
+        },
         {
             key = 'bowFatigueDrainDelay',
             name = 'bowFatigueDrainDelay_name',
@@ -31,9 +52,9 @@ I.Settings.registerGroup {
             min = 0,
         },
         {
-            key = 'bowFatigueDrainRate',
-            name = 'bowFatigueDrainRate_name',
-            description = 'bowFatigueDrainRate_desc',
+            key = 'bowHoldFatigueDrainRate',
+            name = 'bowHoldFatigueDrainRate_name',
+            description = 'bowHoldFatigueDrainRate_desc',
             renderer = 'number',
             default = 10,
             min = 0,
@@ -56,7 +77,7 @@ I.Settings.registerGroup {
     name = 'damageMult_groupName',
     description = "damageMult_groupDesc",
     permanentStorage = true,
-    order = 2,
+    order = 3,
     settings = {
         {
             key = 'baseMult',
@@ -134,7 +155,7 @@ I.Settings.registerGroup {
     name = 'ammoRetrieval_groupName',
     description = "ammoRetrieval_groupDesc",
     permanentStorage = true,
-    order = 3,
+    order = 4,
     settings = {
         {
             key  = 'ammoRetrievalChance',
@@ -169,7 +190,7 @@ I.Settings.registerGroup {
     name = 'nearHit_groupName',
     description = "nearHit_groupDesc",
     permanentStorage = true,
-    order = 100,
+    order = 5,
     settings = {
         {
             key = 'nearHitAggroEnabled',
@@ -183,24 +204,8 @@ I.Settings.registerGroup {
             name = 'aggroDistance_name',
             description = "aggroDistance_desc",
             renderer = 'number',
-            default = 200,
+            default = 500,
             min = 0,
         },
     }
 }
-
--- if not I.ArrowStick then
---     local settingKeys = {
---         "nearHitAggroEnabled",
---         "aggroDistance",
---         "fightValueIncrease",
---         "dispositionDrop",
---     }
---     for _, settingKey in ipairs(settingKeys) do
---         I.Settings.updateRendererArgument(
---             "SettingsBullseye_nearHit",
---             settingKey,
---             { disabled = true }
---         )
---     end
--- end

@@ -1,18 +1,21 @@
 page_name: Bullseye - Marksman Overhaul
-page_description: |
-  Makes Marksman gameplay more tactical.
+page_description: Makes Marksman gameplay more tactical.
 
-  All changes are one-sided and affect only the player!
-
-player_groupName: Player
+playerStats_groupName: Stats
+playerStats_groupDesc: Affects only the Player!
 movementDebuff_name: Moving Penalty
 movementDebuff_desc: Marksman skill penalty applied while moving with a ranged weapon.
 sneakBuff_name: Sneaking Bonus
 sneakBuff_desc: Marksman skill bonus applied while sneaking. Overrides the movement penalty.
-bowFatigueDrainDelay_name: Bowstring Hold Delay (sec)
+
+fatigue_groupName: Fatigue
+fatigue_groupDesc: Affects only the Player!
+bowDrawFatigueDrainRate_name: Bowstring Draw Fatigue Drain (fatigue/sec)
+bowDrawFatigueDrainRate_desc: Usually this animation takes about 1 second.
+bowFatigueDrainDelay_name: Bowstring Holding Fatigue Drain Delay (sec)
 bowFatigueDrainDelay_desc: Time before fatigue begins draining while holding a drawn bow.
-bowFatigueDrainRate_name: Bowstring Fatigue Drain (fatigue/sec)
-bowFatigueDrainRate_desc: Fatigue drain while holding a drawn bow. Starts only after the delay.
+bowHoldFatigueDrainRate_name: Bowstring Holding Fatigue Drain (fatigue/sec)
+bowHoldFatigueDrainRate_desc: Fatigue drain while holding a drawn bow. Starts only after the delay.
 crossbowFatigueDrainRate_name: Crossbow Reload Fatigue Drain (fatigue/sec)
 crossbowFatigueDrainRate_desc: Usually this animation takes about 1 second.
 
@@ -21,6 +24,8 @@ damageMult_groupDesc: |
   Final damage multiplier formula is as follows:
 
   BaseMult + DistanceMult + HeadshotMult
+
+  Affects only the Player!
 baseMult_name: Base Multiplier
 defaultDmgMinDistance_name: Mult Falloff Distance
 defaultDmgMinDistance_desc: >
@@ -51,9 +56,7 @@ retrieveEnchantedProjectiles_name: Retrieve Enchanted Projectiles
 retrieveEnchantedProjectiles_desc: In vanilla they cannot be retrieved.
 
 nearHit_groupName: Near Hit
-nearHit_groupDesc: >
-  Requires the Arrow Stick mod to be installed. Load order does not matter.
-  If this section is disabled, Arrow Stick is not installed and these features will not work.
+nearHit_groupDesc: Requires the Arrow Stick mod to be installed.
 nearHitAggroEnabled_name: NPCs React to Near Hits
 nearHitAggroEnabled_desc: >
   Triggers only if terrain or an object near the actor is hit,

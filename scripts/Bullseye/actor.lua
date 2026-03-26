@@ -4,10 +4,9 @@ local self = require("openmw.self")
 local storage = require("openmw.storage")
 
 require("scripts.Bullseye.logic.headshots")
-require("scripts.Bullseye.utils.common")
+require("scripts.Bullseye.logic.ammo")
 
 local sectionDamageMult = storage.globalSection("SettingsBullseye_damageMult")
-local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetrieval")
 
 local function getDistanceModifier(distance)
     local maxDist = sectionDamageMult:get("defaultDmgMaxDistance")
@@ -25,6 +24,7 @@ end
 local function hitHandler(attack)
     if not attack.successful
         or attack.sourceType ~= I.Combat.ATTACK_SOURCE_TYPES.Ranged
+        or attack.attacker.type ~= types.Player
     then
         return
     end
@@ -32,22 +32,12 @@ local function hitHandler(attack)
     local isThrown = attack.weapon.id == "@0x0"
         -- HOW THE FUCK
         or types.Weapon.records[attack.weapon.recordId].type == types.Weapon.TYPE.MarksmanThrown
-
-    local ammoToRetrieve = types.Weapon.records[attack.ammo]
-    local retrievalChance = isThrown
-        and sectionAmmoRetrieval:get("thrownRetrievalChance")
-        or sectionAmmoRetrieval:get("ammoRetrievalChance")
-    RetrieveAmmo(self, ammoToRetrieve, retrievalChance,
-        sectionAmmoRetrieval:get("retrieveEnchantedProjectiles"))
-
-    if attack.attacker.type ~= types.Player then
-        return
-    end
-
     local distance = (attack.attacker.position - self.position):length()
     local distMod = isThrown and 0 or getDistanceModifier(distance)
+
     local headMod = HeadshotSuccessful(self, attack.hitPos)
         and sectionDamageMult:get("headshotMultiplier") or 0
+
     local damageModifier = sectionDamageMult:get("baseMult") + distMod + headMod
     damageModifier = math.max(sectionDamageMult:get("minTotalMult"), damageModifier)
     damageModifier = math.min(sectionDamageMult:get("maxTotalMult"), damageModifier)
@@ -74,13 +64,12 @@ end
 local function modifyFight()
     -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
     local fight = self.type.stats.ai.fight(self)
-    -- TODO test
-    if fight.base < 70 then
-        return
+    if fight.modified >= 70 then
+        fight.modifier = fight.modifier + 100
     end
-    fight.modifier = fight.modifier + 100
 end
 
+I.Combat.addOnHitHandler(AmmoHandler)
 I.Combat.addOnHitHandler(hitHandler)
 
 return {
