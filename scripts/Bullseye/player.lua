@@ -114,8 +114,8 @@ I.AnimationController.addTextKeyHandler("bowandarrow", function(groupname, key)
     elseif key == "shoot max attack" then
         bowstringIsBeingDrawn = false
         bowstringHeld = true
-        time.newGameTimer(
-            sectionPlayerStats:get("bowFatigueDrainDelay"),
+        time.newSimulationTimer(
+            sectionFatigue:get("bowFatigueDrainDelay"),
             bowstringHeldTooLongCallback)
     elseif key == "shoot min hit" or key == "unequip start" then
         bowstringIsBeingDrawn = false
@@ -131,6 +131,15 @@ I.AnimationController.addTextKeyHandler("crossbow", function(groupname, key)
         reloadingCrossbow = false
     end
 end)
+
+-- I.AnimationController.addTextKeyHandler("throwweapon", function(groupname, key)
+--     print(key)
+--     if key == "shoot release" then
+--         reloadingCrossbow = true
+--     elseif key == "shoot follow stop" then
+--         reloadingCrossbow = false
+--     end
+-- end)
 
 I.Combat.addOnHitHandler(AmmoHandler)
 

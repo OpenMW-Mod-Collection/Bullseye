@@ -2,7 +2,7 @@
 
 Marksman combat shouldn't feel like melee with extra reach.
 
-*Spiritual successor of my [Headshots](https://www.nexusmods.com/morrowind/mods/57406) mod.*
+_Spiritual successor of my [Headshots](https://www.nexusmods.com/morrowind/mods/57406) mod._
 
 Archers should control the battlefield through positioning and distance, while warriors should dominate close combat. Your goal is simple: keep your distance and land your shots.
 
@@ -10,24 +10,27 @@ Archers should control the battlefield through positioning and distance, while w
 
 ### Lua Mechanics
 
-**Combat Mechanics** *(affects only the player)*
-- Damage multiplier based on attack distance  
-  *(does not affect thrown weapons)*
+**Combat Mechanics** _(affects only the player)_
+
+- Damage multiplier based on attack distance _(does not affect thrown weapons)_
 - Headshot damage multiplier
 - Marksman debuff while moving
 - Marksman buff while sneaking
 
-**Fatigue System** *(affects only the player)*
+**Fatigue System** _(affects only the player)_
+
 - Bows drain fatigue when drawing the bowstring
 - Bows drain fatigue when holding the bowstring too long
 - Crossbows drain fatigue when reloading
 
 **Ammo Economy Rebalance**
-- Custom chance for ammunition to stick into the victim
-  - Bows / Crossbows - **25%**
-  - Thrown weapons - **75%**
 
-**AI Behavior** *(optional, requires [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299))*
+- Custom chance for ammunition to stick into the victim
+  - Bows / Crossbows - 25%
+  - Thrown weapons - 75%
+
+**AI Behavior** _(optional, requires [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299))_
+
 - Missed arrows can alert nearby hostile NPCs
 
 And, of course, every value is configurable.
@@ -35,12 +38,14 @@ And, of course, every value is configurable.
 ### GMST Edits
 
 **Faster Marksman Projectiles**
+
 - fProjectileMinSpeed: 400 -> 1000
 - fProjectileMaxSpeed: 3000 -> 8000
 - fThrownWeaponMinSpeed: 300 -> 1000
 - fThrownWeaponMaxSpeed: 1000 -> 4000
 
-**Ammo Economy Rebalance** *(since it is replaced with Lua)*
+**Ammo Economy Rebalance** _(since it is replaced with Lua)_
+
 - fProjectileThrownStoreChance: 25 -> 0
 
 ## Feature Details
@@ -91,7 +96,7 @@ If there is a mod in your modlist that affects the `fProjectileThrownStoreChance
 - [Cast onStrike Bow and Crossbow (openMW)](https://www.nexusmods.com/morrowind/mods/57329) by ComeBESNIER
 - [UNCALCULATED LEVELED CREATURES FIX AND YOU CAN ACTUALLY GET ENCHANTED ARROWS AFTER LEVEL 5](https://www.nexusmods.com/morrowind/mods/51717) by concit
 - [Enchanter's Quiver - Arrows and Projectiles Enchant Capacity](https://www.nexusmods.com/morrowind/mods/58121) by 6moonless
-- [Bound Balance](https://modding-openmw.gitlab.io/bound-balance/) by johnnyhostile
+- [Hawk3ye - OpenMW Zooming](https://www.nexusmods.com/morrowind/mods/57125) by S3ctor / [Marksman's Eye](https://www.nexusmods.com/morrowind/mods/51141) by johnnyhostile / [Bow Aim Activate (OpenMW Lua)](https://www.nexusmods.com/morrowind/mods/52332) by Solthas
 
 ## Credits
 

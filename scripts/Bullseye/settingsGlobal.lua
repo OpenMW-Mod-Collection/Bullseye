@@ -56,7 +56,7 @@ I.Settings.registerGroup {
             name = 'bowHoldFatigueDrainRate_name',
             description = 'bowHoldFatigueDrainRate_desc',
             renderer = 'number',
-            default = 10,
+            default = 20,
             min = 0,
         },
         {
@@ -64,9 +64,17 @@ I.Settings.registerGroup {
             name = 'crossbowFatigueDrainRate_name',
             description = 'crossbowFatigueDrainRate_desc',
             renderer = 'number',
-            default = 25,
+            default = 15,
             min = 0,
         },
+        -- {
+        --     key = 'thrownFatigueDrainRate',
+        --     name = 'thrownFatigueDrainRate_name',
+        --     description = 'thrownFatigueDrainRate_desc',
+        --     renderer = 'number',
+        --     default = 10,
+        --     min = 0,
+        -- },
     }
 }
 
