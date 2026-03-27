@@ -67,14 +67,14 @@ I.Settings.registerGroup {
             default = 15,
             min = 0,
         },
-        -- {
-        --     key = 'thrownFatigueDrainRate',
-        --     name = 'thrownFatigueDrainRate_name',
-        --     description = 'thrownFatigueDrainRate_desc',
-        --     renderer = 'number',
-        --     default = 10,
-        --     min = 0,
-        -- },
+        {
+            key = 'thrownFatigueDrainRate',
+            name = 'thrownFatigueDrainRate_name',
+            description = 'thrownFatigueDrainRate_desc',
+            renderer = 'number',
+            default = 10,
+            min = 0,
+        },
     }
 }
 
@@ -145,6 +145,14 @@ I.Settings.registerGroup {
             name = 'minTotalMult_name',
             renderer = 'number',
             default = .25,
+            min = 0,
+        },
+        {
+            key = 'headshotSFXVolume',
+            name = 'headshotSFXVolume_name',
+            description = "headshotSFXVolume_desc",
+            renderer = 'checkbox',
+            default = 1,
             min = 0,
         },
         {

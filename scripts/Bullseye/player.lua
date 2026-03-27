@@ -2,6 +2,7 @@ local self = require("openmw.self")
 local I = require("openmw.interfaces")
 local time = require("openmw_aux.time")
 local storage = require("openmw.storage")
+local ambient = require("openmw.ambient")
 
 require("scripts.Bullseye.logic.ammo")
 
@@ -16,10 +17,14 @@ MovementStatuses = {
 
 local latestMovementStatus = MovementStatuses.idling
 local currMovementStatus = MovementStatuses.idling
-local bowstringIsBeingDrawn = false
-local bowstringHeld = false
-local bowstringHeldTooLong = false
-local reloadingCrossbow = false
+local currentAnimState = nil
+local bowHeld = false
+local fatigueRates = {
+    bowDraw = "bowDrawFatigueDrainRate",
+    bowHold = "bowHoldFatigueDrainRate",
+    crossbow = "crossbowFatigueDrainRate",
+    thrown = "thrownFatigueDrainRate",
+}
 
 local movementEffect = {
     [MovementStatuses.idling] = function() end,
@@ -83,12 +88,10 @@ end
 
 local function onUpdate(dt)
     updateMovementEffect()
-    if bowstringIsBeingDrawn then
-        drainFatigue(dt, sectionFatigue:get("bowDrawFatigueDrainRate"))
-    elseif bowstringHeldTooLong then
-        drainFatigue(dt, sectionFatigue:get("bowHoldFatigueDrainRate"))
-    elseif reloadingCrossbow then
-        drainFatigue(dt, sectionFatigue:get("crossbowFatigueDrainRate"))
+
+    local rateKey = fatigueRates[currentAnimState]
+    if rateKey then
+        drainFatigue(dt, sectionFatigue:get(rateKey))
     end
 end
 
@@ -104,42 +107,53 @@ local function onLoad(saveData)
     currMovementStatus = saveData.currMovementStatus
 end
 
-local bowstringHeldTooLongCallback = time.registerTimerCallback("bowstringHeldTooLong", function()
-    bowstringHeldTooLong = bowstringHeld
-end)
+local function playHeadshotSFX(volume)
+    ambient.playSound("critical damage", {
+        volume = volume
+    })
+end
 
-I.AnimationController.addTextKeyHandler("bowandarrow", function(groupname, key)
+local bowstringHeldTooLongCallback = time.registerTimerCallback(
+    "bowstringHeldTooLong",
+    function()
+        if bowHeld and currentAnimState == nil then
+            currentAnimState = "bowHold"
+        end
+    end
+)
+
+I.AnimationController.addTextKeyHandler("bowandarrow", function(_, key)
     if key == "shoot attach" then
-        bowstringIsBeingDrawn = true
+        currentAnimState = "bowDraw"
     elseif key == "shoot max attack" then
-        bowstringIsBeingDrawn = false
-        bowstringHeld = true
+        currentAnimState = nil
+        bowHeld = true
+
         time.newSimulationTimer(
             sectionFatigue:get("bowFatigueDrainDelay"),
-            bowstringHeldTooLongCallback)
+            bowstringHeldTooLongCallback
+        )
     elseif key == "shoot min hit" or key == "unequip start" then
-        bowstringIsBeingDrawn = false
-        bowstringHeld = false
-        bowstringHeldTooLong = false
+        currentAnimState = nil
+        bowHeld = false
     end
 end)
 
-I.AnimationController.addTextKeyHandler("crossbow", function(groupname, key)
+I.AnimationController.addTextKeyHandler("crossbow", function(_, key)
     if key == "shoot release" then
-        reloadingCrossbow = true
+        currentAnimState = "crossbow"
     elseif key == "shoot follow stop" then
-        reloadingCrossbow = false
+        currentAnimState = nil
     end
 end)
 
--- I.AnimationController.addTextKeyHandler("throwweapon", function(groupname, key)
---     print(key)
---     if key == "shoot release" then
---         reloadingCrossbow = true
---     elseif key == "shoot follow stop" then
---         reloadingCrossbow = false
---     end
--- end)
+I.AnimationController.addTextKeyHandler("throwweapon", function(_, key)
+    if key == "shoot min hit" then
+        currentAnimState = "thrown"
+    elseif key == "shoot follow stop" then
+        currentAnimState = nil
+    end
+end)
 
 I.Combat.addOnHitHandler(AmmoHandler)
 
@@ -148,5 +162,8 @@ return {
         onUpdate = onUpdate,
         onSave = onSave,
         onLoad = onLoad,
+    },
+    eventHandlers = {
+        Bullseye_PlayHeadshotSFX = playHeadshotSFX
     }
 }

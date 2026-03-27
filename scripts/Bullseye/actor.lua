@@ -58,6 +58,11 @@ local function hitHandler(attack)
         })
     end
 
+    local headshotVolume = sectionDamageMult:get("playHeadshotSFX")
+    if headMod ~= 0 and headshotVolume ~= 0 then
+        attack.attacker:sendEvent("Bullseye_PlayHeadshotSFX", headshotVolume)
+    end
+
     attack.damage.health = attack.damage.health * damageModifier
 end
 

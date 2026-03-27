@@ -10,14 +10,16 @@ sneakBuff_desc: Marksman skill bonus applied while sneaking. Overrides the movem
 
 fatigue_groupName: Fatigue
 fatigue_groupDesc: Affects only the Player!
-bowDrawFatigueDrainRate_name: Bowstring Draw Fatigue Drain (fatigue/sec)
-bowDrawFatigueDrainRate_desc: Usually this animation takes about 1 second.
-bowFatigueDrainDelay_name: Bowstring Holding Fatigue Drain Delay (sec)
-bowFatigueDrainDelay_desc: Time before fatigue begins draining while holding a drawn bow.
-bowHoldFatigueDrainRate_name: Bowstring Holding Fatigue Drain (fatigue/sec)
-bowHoldFatigueDrainRate_desc: Fatigue drain while holding a drawn bow. Starts only after the delay.
-crossbowFatigueDrainRate_name: Crossbow Reload Fatigue Drain (fatigue/sec)
-crossbowFatigueDrainRate_desc: Usually this animation takes about 1 second.
+bowDrawFatigueDrainRate_name: Bow Draw (fatigue/sec)
+bowDrawFatigueDrainRate_desc: Fatigue drained while drawing a bow. The animation lasts ~1 second.
+bowFatigueDrainDelay_name: Bow Hold Delay (sec)
+bowFatigueDrainDelay_desc: Delay before fatigue starts draining while holding a drawn bow.
+bowHoldFatigueDrainRate_name: Bow Hold (fatigue/sec)
+bowHoldFatigueDrainRate_desc: Fatigue drained while holding a fully drawn bow, after the delay.
+crossbowFatigueDrainRate_name: Crossbow Reload (fatigue/sec)
+crossbowFatigueDrainRate_desc: Fatigue drained while reloading a crossbow (~1 second).
+thrownFatigueDrainRate_name: Throwing (fatigue/sec)
+thrownFatigueDrainRate_desc: Fatigue drained when throwing a throwing weapon (~1 second).
 
 damageMult_groupName: Damage Multiplier
 damageMult_groupDesc: |
@@ -44,6 +46,8 @@ headshotMultiplier_desc: >
   NPCs, humanoids, daedra, undead, and some special white- and blacklisted cases.
 maxTotalMult_name: Max Total Mult
 minTotalMult_name: Min Total Mult
+headshotSFXVolume_name: Headshot SFX Volume
+headshotSFXVolume_desc: Set it to 0 to disable.
 showMultMessage_name: Show Multiplier Messages
 
 ammoRetrieval_groupName: Projectile Retrieval
