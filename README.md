@@ -22,6 +22,7 @@ Archers should control the battlefield through positioning and distance, while w
 - Bows drain fatigue when drawing the bowstring
 - Bows drain fatigue when holding the bowstring too long
 - Crossbows drain fatigue when reloading
+- Throwing weapons drain fatigue when they are thrown
 
 **Ammo Economy Rebalance**
 
