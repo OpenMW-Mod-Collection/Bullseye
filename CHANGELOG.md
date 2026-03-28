@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.1
+
+- Fixed bowstring holding timer executing prematurely
+
 ## 1.1
 
 - Added SFX for hitting a headshot

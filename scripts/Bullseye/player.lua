@@ -9,26 +9,27 @@ require("scripts.Bullseye.logic.ammo")
 local sectionPlayerStats = storage.globalSection("SettingsBullseye_playerStats")
 local sectionFatigue = storage.globalSection("SettingsBullseye_fatigue")
 
-MovementStatuses = {
+local movementStatuses = {
     idling   = "idling",
     moving   = "moving",
     sneaking = "sneaking",
 }
-
-local latestMovementStatus = MovementStatuses.idling
-local currMovementStatus = MovementStatuses.idling
-local currentAnimState = nil
-local bowHeld = false
 local fatigueRates = {
-    bowDraw = "bowDrawFatigueDrainRate",
-    bowHold = "bowHoldFatigueDrainRate",
-    crossbow = "crossbowFatigueDrainRate",
-    thrown = "thrownFatigueDrainRate",
+    bowDraw        = "bowDrawFatigueDrainRate",
+    bowHold        = nil, -- reserved for bowHoldTooLong timer
+    bowHoldTooLong = "bowHoldFatigueDrainRate",
+    crossbow       = "crossbowFatigueDrainRate",
+    thrown         = "thrownFatigueDrainRate",
 }
 
+local latestMovementStatus = movementStatuses.idling
+local currMovementStatus = movementStatuses.idling
+local currentAnimState = nil
+local bowHoldTimerId = 0
+
 local movementEffect = {
-    [MovementStatuses.idling] = function() end,
-    [MovementStatuses.moving] = function(marksman, direction)
+    [movementStatuses.idling] = function() end,
+    [movementStatuses.moving] = function(marksman, direction)
         local debuff = sectionPlayerStats:get("movementDebuff")
 
         -- when returning back, capping restoration to not give any buffs
@@ -41,7 +42,7 @@ local movementEffect = {
             - debuff
             * direction
     end,
-    [MovementStatuses.sneaking] = function(marksman, direction)
+    [movementStatuses.sneaking] = function(marksman, direction)
         marksman.modifier = marksman.modifier
             + sectionPlayerStats:get("sneakBuff")
             * direction
@@ -55,7 +56,7 @@ local function updateMovementEffect()
 
     if not weaponStance
         or not weapon
-        or currMovementStatus == MovementStatuses.idling
+        or currMovementStatus == movementStatuses.idling
     then
         return
     end
@@ -69,9 +70,9 @@ local function updateMovementEffect()
     local isSneaking   = self.controls.sneak and weaponStance
     local marksman     = self.type.stats.skills.marksman(self)
 
-    currMovementStatus = (isSneaking and MovementStatuses.sneaking)
-        or (isMoving and MovementStatuses.moving)
-        or MovementStatuses.idling
+    currMovementStatus = (isSneaking and movementStatuses.sneaking)
+        or (isMoving and movementStatuses.moving)
+        or movementStatuses.idling
 
     if latestMovementStatus ~= currMovementStatus then
         movementEffect[latestMovementStatus](marksman, -1)
@@ -115,9 +116,9 @@ end
 
 local bowstringHeldTooLongCallback = time.registerTimerCallback(
     "bowstringHeldTooLong",
-    function()
-        if bowHeld and currentAnimState == nil then
-            currentAnimState = "bowHold"
+    function(currTimerId)
+        if bowHoldTimerId == currTimerId and currentAnimState == "bowHold" then
+            currentAnimState = "bowHoldTooLong"
         end
     end
 )
@@ -126,16 +127,16 @@ I.AnimationController.addTextKeyHandler("bowandarrow", function(_, key)
     if key == "shoot attach" then
         currentAnimState = "bowDraw"
     elseif key == "shoot max attack" then
-        currentAnimState = nil
-        bowHeld = true
+        currentAnimState = "bowHold"
+        bowHoldTimerId = bowHoldTimerId + 1
 
         time.newSimulationTimer(
             sectionFatigue:get("bowFatigueDrainDelay"),
-            bowstringHeldTooLongCallback
+            bowstringHeldTooLongCallback,
+            bowHoldTimerId
         )
     elseif key == "shoot min hit" or key == "unequip start" then
         currentAnimState = nil
-        bowHeld = false
     end
 end)
 
