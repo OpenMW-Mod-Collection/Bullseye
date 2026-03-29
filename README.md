@@ -79,7 +79,7 @@ If there is a mod in your modlist that affects the `fProjectileThrownStoreChance
 
 ### Requirements
 
-- [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) by me and DaisyHasACat - Optional, load order doesn't matter
+- [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) 1.5 or newer - Optional, load order doesn't matter
 
 ### Supported Mods (Headshot Whitelist)
 

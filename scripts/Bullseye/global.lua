@@ -36,6 +36,6 @@ return {
     eventHandlers = {
         Bullseye_retrieveAmmo = retrieveAmmo,
         -- requires Arrow Stick mod to work
-        placeArrow = arrowLanded,
+        ArrowStick_PlaceNewArrow = arrowLanded,
     }
 }
