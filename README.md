@@ -76,6 +76,7 @@ If there is a mod in your modlist that affects the `fProjectileThrownStoreChance
 
 - [Headshots](https://www.nexusmods.com/morrowind/mods/57406) by me - Already implemented here
 - [Sneak Attack Buff (OpenMW Lua)](https://www.nexusmods.com/morrowind/mods/52352) by Solthas - Bullseye penalizes for bowstring holding and SAB rewards. Though, it can be changed in settings
+- [Projectile Overhaul - Modular](https://www.nexusmods.com/morrowind/mods/43195) by Mr.Magic - "Faster Projectiles" and "Recovery Chance" modules will override the GMST changes made by Bullseye if loaded after the Bullseye. Same goes for the merged version
 
 ### Requirements
 
