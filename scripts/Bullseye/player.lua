@@ -21,6 +21,8 @@ local fatigueRates = {
     crossbow       = "crossbowFatigueDrainRate",
     thrown         = "thrownFatigueDrainRate",
 }
+local marksman = self.type.stats.skills.marksman(self)
+local fatigue = self.type.stats.dynamic.fatigue(self)
 
 local latestMovementStatus = movementStatuses.idling
 local currMovementStatus = movementStatuses.idling
@@ -29,7 +31,7 @@ local bowHoldTimerId = 0
 
 local movementEffect = {
     [movementStatuses.idling] = function() end,
-    [movementStatuses.moving] = function(marksman, direction)
+    [movementStatuses.moving] = function(direction)
         local debuff = sectionPlayerStats:get("movementDebuff")
 
         -- when returning back, capping restoration to not give any buffs
@@ -42,7 +44,7 @@ local movementEffect = {
             - debuff
             * direction
     end,
-    [movementStatuses.sneaking] = function(marksman, direction)
+    [movementStatuses.sneaking] = function(direction)
         marksman.modifier = marksman.modifier
             + sectionPlayerStats:get("sneakBuff")
             * direction
@@ -53,36 +55,28 @@ local function updateMovementEffect()
     local stance       = self.type.getStance(self)
     local weaponStance = stance == self.type.STANCE.Weapon
     local weapon       = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
-
-    if not weaponStance
-        or not weapon
-        or currMovementStatus == movementStatuses.idling
-    then
-        return
-    end
+    if not weaponStance or not weapon then return end
 
     local weaponType = weapon.type.records[weapon.recordId].type
     local eqBow      = weaponType == weapon.type.TYPE.MarksmanBow
     local eqCrossbow = weaponType == weapon.type.TYPE.MarksmanCrossbow
     if not (eqBow or eqCrossbow) then return end
 
-    local isMoving     = self.type.getCurrentSpeed(self) ~= 0 and weaponStance
-    local isSneaking   = self.controls.sneak and weaponStance
-    local marksman     = self.type.stats.skills.marksman(self)
+    local isMoving   = self.type.getCurrentSpeed(self) ~= 0 and weaponStance
+    local isSneaking = self.controls.sneak and weaponStance
 
     currMovementStatus = (isSneaking and movementStatuses.sneaking)
         or (isMoving and movementStatuses.moving)
         or movementStatuses.idling
 
     if latestMovementStatus ~= currMovementStatus then
-        movementEffect[latestMovementStatus](marksman, -1)
+        movementEffect[latestMovementStatus](-1)
+        movementEffect[currMovementStatus](1)
         latestMovementStatus = currMovementStatus
-        movementEffect[currMovementStatus](marksman, 1)
     end
 end
 
 local function drainFatigue(dt, amount)
-    local fatigue = self.type.stats.dynamic.fatigue(self)
     local drain = fatigue.current - amount * dt
     fatigue.current = math.max(0, drain)
 end

@@ -1,5 +1,10 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.3
+
+- Fixed movement buffs and debuffs not working
+- Minor performance tweaks
+
 ## 1.1.2
 
 - Updated to new version of Arrow Stick (still optional, but now it needs to be 1.5 or newer)

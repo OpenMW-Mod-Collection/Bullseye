@@ -4,7 +4,7 @@ page_description: Makes Marksman gameplay more tactical.
 playerStats_groupName: Stats
 playerStats_groupDesc: Affects only the Player!
 movementDebuff_name: Moving Penalty
-movementDebuff_desc: Marksman skill penalty applied while moving with a ranged weapon.
+movementDebuff_desc: Marksman skill penalty applied while moving with a ranged weapon drawn out.
 sneakBuff_name: Sneaking Bonus
 sneakBuff_desc: Marksman skill bonus applied while sneaking. Overrides the movement penalty.
 
