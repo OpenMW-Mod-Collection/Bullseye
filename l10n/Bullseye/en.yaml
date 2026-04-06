@@ -2,32 +2,42 @@ page_name: Bullseye - Marksman Overhaul
 page_description: Makes Marksman gameplay more tactical.
 
 playerStats_groupName: Stats
-playerStats_groupDesc: Affects only the Player!
-movementDebuff_name: Moving Penalty
-movementDebuff_desc: Marksman skill penalty applied while moving with a ranged weapon drawn out.
+playerStats_groupDesc: |
+  Affects only the player!
+
+  Takes effect only when a bow or crossbow is drawn. Throwing weapons are unaffected.
+
+  1 weapon skill point translates to:
+  > +1.25% hit accuracy at full fatigue
+  > +0.75% hit accuracy at 0 fatigue
+movementDebuff_name: Movement Penalty
+movementDebuff_desc: Marksman skill penalty applied while moving.
 sneakBuff_name: Sneaking Bonus
 sneakBuff_desc: Marksman skill bonus applied while sneaking. Overrides the movement penalty.
 
 fatigue_groupName: Fatigue
-fatigue_groupDesc: Affects only the Player!
+fatigue_groupDesc: |
+  Affects only the Player!
+
+  Most of these animations last around 1 second. If you have a mod that scales their playback speed, you might want to adjust the rates accordingly.
 bowDrawFatigueDrainRate_name: Bow Draw (fatigue/sec)
-bowDrawFatigueDrainRate_desc: Fatigue drained while drawing a bow. The animation lasts ~1 second.
+bowDrawFatigueDrainRate_desc: Fatigue drained while drawing a bow.
 bowFatigueDrainDelay_name: Bow Hold Delay (sec)
 bowFatigueDrainDelay_desc: Delay before fatigue starts draining while holding a drawn bow.
 bowHoldFatigueDrainRate_name: Bow Hold (fatigue/sec)
 bowHoldFatigueDrainRate_desc: Fatigue drained while holding a fully drawn bow, after the delay.
 crossbowFatigueDrainRate_name: Crossbow Reload (fatigue/sec)
-crossbowFatigueDrainRate_desc: Fatigue drained while reloading a crossbow (~1 second).
+crossbowFatigueDrainRate_desc: Fatigue drained while reloading a crossbow.
 thrownFatigueDrainRate_name: Throwing (fatigue/sec)
-thrownFatigueDrainRate_desc: Fatigue drained when throwing a throwing weapon (~1 second).
+thrownFatigueDrainRate_desc: Fatigue drained when throwing a throwing weapon.
 
 damageMult_groupName: Damage Multiplier
 damageMult_groupDesc: |
+  Affects only the Player!
+
   Final damage multiplier formula is as follows:
 
   BaseMult + DistanceMult + HeadshotMult
-
-  Affects only the Player!
 baseMult_name: Base Multiplier
 defaultDmgMinDistance_name: Mult Falloff Distance
 defaultDmgMinDistance_desc: >
@@ -40,10 +50,17 @@ distanceDamageFalloff_desc: Multiplier decrease for every 1000 units below the f
 distanceDamageBuildup_name: Mult Increase per 1000 Units
 distanceDamageBuildup_desc: Multiplier increase for every 1000 units beyond the increase distance.
 headshotMultiplier_name: Headshot Multiplier
-headshotMultiplier_desc: >
+headshotMultiplier_desc: |
   Head is considered to be the top 85% of the actor bounding box.
-  Not every actor can be headshot, but the list includes:
-  NPCs, humanoids, daedra, undead, and some special white- and blacklisted cases.
+
+  Not every actor can be headshotted, but the list includes:
+  - NPCs
+  - Humanoid creatures
+  - Daedra
+  - Undead
+  - Some special white- and blacklisted cases where it made sense
+  
+  General rule of thumb: if actor's head is in the upper part of the bounding box, it likely can be headshotted.
 maxTotalMult_name: Max Total Mult
 minTotalMult_name: Min Total Mult
 headshotSFXVolume_name: Headshot SFX Volume
@@ -62,8 +79,6 @@ retrieveEnchantedProjectiles_desc: In vanilla they cannot be retrieved.
 nearHit_groupName: Near Hit
 nearHit_groupDesc: Requires the Arrow Stick mod to be installed.
 nearHitAggroEnabled_name: NPCs React to Near Hits
-nearHitAggroEnabled_desc: >
-  Triggers only if terrain or an object near the actor is hit,
-  not if the projectile simply flies past them or hits someone else.
+nearHitAggroEnabled_desc: If the arrow lands near a hostile NPC (fight value >= 70), they will start combat with you.
 aggroDistance_name: Near Hit Distance
 aggroDistance_desc: Distance from the actor within which a projectile impact counts as a near hit.

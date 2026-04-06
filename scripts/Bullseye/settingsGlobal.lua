@@ -151,7 +151,7 @@ I.Settings.registerGroup {
             key = 'headshotSFXVolume',
             name = 'headshotSFXVolume_name',
             description = "headshotSFXVolume_desc",
-            renderer = 'checkbox',
+            renderer = 'number',
             default = 1,
             min = 0,
         },

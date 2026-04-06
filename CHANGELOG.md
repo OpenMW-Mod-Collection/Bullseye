@@ -1,5 +1,11 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.4
+
+- Made some settings descriptions more verbose and clear
+- Fixed movement buffs and debuffs not working correctly
+- Fixed "Headshot SFX Volume" using checkbox input field instead of number
+
 ## 1.1.3
 
 - Fixed movement buffs and debuffs not working

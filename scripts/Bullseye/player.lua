@@ -51,16 +51,22 @@ local movementEffect = {
     end,
 }
 
-local function updateMovementEffect()
+local function updateCurrentMovementStatus()
     local stance       = self.type.getStance(self)
     local weaponStance = stance == self.type.STANCE.Weapon
     local weapon       = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
-    if not weaponStance or not weapon then return end
+    if not weaponStance or not weapon then
+        currMovementStatus = movementStatuses.idling
+        return
+    end
 
     local weaponType = weapon.type.records[weapon.recordId].type
     local eqBow      = weaponType == weapon.type.TYPE.MarksmanBow
     local eqCrossbow = weaponType == weapon.type.TYPE.MarksmanCrossbow
-    if not (eqBow or eqCrossbow) then return end
+    if not (eqBow or eqCrossbow) then
+        currMovementStatus = movementStatuses.idling
+        return
+    end
 
     local isMoving   = self.type.getCurrentSpeed(self) ~= 0 and weaponStance
     local isSneaking = self.controls.sneak and weaponStance
@@ -68,12 +74,6 @@ local function updateMovementEffect()
     currMovementStatus = (isSneaking and movementStatuses.sneaking)
         or (isMoving and movementStatuses.moving)
         or movementStatuses.idling
-
-    if latestMovementStatus ~= currMovementStatus then
-        movementEffect[latestMovementStatus](-1)
-        movementEffect[currMovementStatus](1)
-        latestMovementStatus = currMovementStatus
-    end
 end
 
 local function drainFatigue(dt, amount)
@@ -82,8 +82,15 @@ local function drainFatigue(dt, amount)
 end
 
 local function onUpdate(dt)
-    updateMovementEffect()
+    -- movement status stuff
+    updateCurrentMovementStatus()
+    if latestMovementStatus ~= currMovementStatus then
+        movementEffect[latestMovementStatus](-1)
+        movementEffect[currMovementStatus](1)
+        latestMovementStatus = currMovementStatus
+    end
 
+    -- drain fatigue stuff
     local rateKey = fatigueRates[currentAnimState]
     if rateKey then
         drainFatigue(dt, sectionFatigue:get(rateKey))
