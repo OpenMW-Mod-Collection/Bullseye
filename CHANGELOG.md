@@ -3,7 +3,7 @@
 ## 1.1.4
 
 - Made some settings descriptions more verbose and clear
-- Fixed movement buffs and debuffs not working correctly
+- Fixed movement buffs and debuffs not working _correctly_
 - Fixed "Headshot SFX Volume" using checkbox input field instead of number
 
 ## 1.1.3
