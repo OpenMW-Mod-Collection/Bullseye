@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.6
+
+- Fixed error spam when holding lockpicks or probes
+
 ## 1.1.5
 
 - Fixed throwing weapons throwing errors on ammo retrieval

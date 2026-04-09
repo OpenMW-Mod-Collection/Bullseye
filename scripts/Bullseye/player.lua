@@ -3,6 +3,7 @@ local I = require("openmw.interfaces")
 local time = require("openmw_aux.time")
 local storage = require("openmw.storage")
 local ambient = require("openmw.ambient")
+local types = require("openmw.types")
 
 require("scripts.Bullseye.logic.ammo")
 
@@ -55,7 +56,7 @@ local function updateCurrentMovementStatus()
     local stance       = self.type.getStance(self)
     local weaponStance = stance == self.type.STANCE.Weapon
     local weapon       = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
-    if not weaponStance or not weapon then
+    if not weaponStance or not weapon or not types.Weapon.objectIsInstance(weapon) then
         currMovementStatus = movementStatuses.idling
         return
     end
