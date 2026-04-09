@@ -2,6 +2,7 @@ local core = require("openmw.core")
 local I = require("openmw.interfaces")
 local self = require("openmw.self")
 local storage = require("openmw.storage")
+local types = require("openmw.types")
 
 local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetrieval")
 
@@ -12,7 +13,7 @@ function AmmoHandler(attack)
         return
     end
 
-    local ammoRecord = attack.weapon.type.records[attack.ammo]
+    local ammoRecord = types.Weapon.records[attack.ammo]
     local retrieveEnchanted = sectionAmmoRetrieval:get("retrieveEnchantedProjectiles")
     local isThrown = attack.weapon.id == "@0x0"
         -- HOW THE FUCK

@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.5
+
+- Fixed throwing weapons throwing errors on ammo retrieval
+
 ## 1.1.4
 
 - Made some settings descriptions more verbose and clear
