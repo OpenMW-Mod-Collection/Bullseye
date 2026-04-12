@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.7
+
+- Added Chinese translation by oreman
+
 ## 1.1.6
 
 - Fixed error spam when holding lockpicks or probes

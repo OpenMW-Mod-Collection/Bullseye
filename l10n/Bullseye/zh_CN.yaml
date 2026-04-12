@@ -1,0 +1,84 @@
+page_name: 神眼 - 射击技能大修
+page_description: 让射击玩法更具战术性。
+
+playerStats_groupName: 属性
+playerStats_groupDesc: |
+  仅影响玩家！
+
+  仅在拉弓或弩时生效。投掷武器不受影响。
+
+  1点武器技能值转化为：
+  > +1.25% 满疲劳时的命中精度
+  > +0.75% 零疲劳时的命中精度
+movementDebuff_name: 移动惩罚
+movementDebuff_desc: 移动时施加的射击技能惩罚。
+sneakBuff_name: 潜行加成
+sneakBuff_desc: 潜行时获得的射击技能加成。会覆盖移动惩罚。
+
+fatigue_groupName: 疲劳
+fatigue_groupDesc: |
+  仅影响玩家！
+
+  这些动画大多持续约1秒。如果你有模组改变了动画播放速度，可能需要相应调整速率。
+bowDrawFatigueDrainRate_name: 拉弓（疲劳/秒）
+bowDrawFatigueDrainRate_desc: 拉弓时消耗的疲劳值。
+bowFatigueDrainDelay_name: 满弓保持延迟（秒）
+bowFatigueDrainDelay_desc: 保持满弓状态下，疲劳开始消耗前的延迟时间。
+bowHoldFatigueDrainRate_name: 满弓保持（疲劳/秒）
+bowHoldFatigueDrainRate_desc: 延迟过后，保持满弓状态时每秒消耗的疲劳值。
+crossbowFatigueDrainRate_name: 弩装填（疲劳/秒）
+crossbowFatigueDrainRate_desc: 装填弩时消耗的疲劳值。
+thrownFatigueDrainRate_name: 投掷（疲劳/秒）
+thrownFatigueDrainRate_desc: 投掷投掷武器时消耗的疲劳值。
+
+damageMult_groupName: 伤害倍率
+damageMult_groupDesc: |
+  仅影响玩家！
+
+  最终伤害倍率计算公式如下：
+
+  基础倍率 + 距离倍率 + 爆头倍率
+baseMult_name: 基础倍率
+defaultDmgMinDistance_name: 倍率衰减距离
+defaultDmgMinDistance_desc: >
+  低于此距离时，伤害倍率开始衰减。
+  作为参考，奥代河长约1000单位。
+defaultDmgMaxDistance_name: 倍率增加距离
+defaultDmgMaxDistance_desc: 超过此距离后，伤害倍率开始增加。
+distanceDamageFalloff_name: 每1000单位衰减倍率
+distanceDamageFalloff_desc: 在衰减距离内，每1000单位减少的倍率。
+distanceDamageBuildup_name: 每1000单位增加倍率
+distanceDamageBuildup_desc: 在增加距离外，每1000单位增加的倍率。
+headshotMultiplier_name: 爆头倍率
+headshotMultiplier_desc: |
+  头部定义为角色边界框的上部85%。
+
+  并非所有角色都能被爆头，但列表包括：
+  - NPC
+  - 人形生物
+  - 迪德拉
+  - 亡灵
+  - 一些特殊白名单和黑名单中合理的情况
+  
+  一般经验法则：如果角色的头部位于边界框的上部，很可能可以爆头。
+maxTotalMult_name: 最大总倍率
+minTotalMult_name: 最小总倍率
+headshotSFXVolume_name: 爆头音效音量
+headshotSFXVolume_desc: 设为0可禁用。
+showMultMessage_name: 显示倍率信息
+
+ammoRetrieval_groupName: 弹药回收
+ammoRetrieval_groupDesc: >
+  控制投射物存入受害者库存的频率。
+  覆盖原版行为。
+ammoRetrievalChance_name: 箭矢与弩矢回收几率
+thrownRetrievalChance_name: 投掷武器回收几率
+retrieveEnchantedProjectiles_name: 回收附魔投射物
+retrieveEnchantedProjectiles_desc: 原版中无法回收。
+
+nearHit_groupName: 箭矢警觉
+nearHit_groupDesc: 需要安装 Arrow Stick 模组。
+nearHitAggroEnabled_name: NPC对箭矢警觉做出反应
+nearHitAggroEnabled_desc: 如果箭矢落在敌对NPC（战斗值 >= 70）附近，他们将与你进入战斗。
+aggroDistance_name: 箭矢警觉距离
+aggroDistance_desc: 投射物撞击点与角色之间的距离，在此范围内视为箭矢警觉。

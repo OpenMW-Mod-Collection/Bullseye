@@ -108,3 +108,4 @@ If there is a mod in your modlist that affects the `fProjectileThrownStoreChance
 **Axemagister** - Inspiration ([N'wah Shooter](https://www.nexusmods.com/morrowind/mods/49657))  
 **Merlord** - Inspiration ([Realistic Archery](https://www.nexusmods.com/morrowind/mods/51473))  
 **Cybvep** - Help with creature headshot whitelist
+**Oreman** - Chinese translation
