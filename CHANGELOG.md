@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.8
+
+- Fixed crossbow reload fatigue drain initiating when changing weapons
+
 ## 1.1.7
 
 - Added Chinese translation by oreman

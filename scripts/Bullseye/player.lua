@@ -91,6 +91,14 @@ local function onUpdate(dt)
         latestMovementStatus = currMovementStatus
     end
 
+    if currentAnimState == fatigueRates.crossbow then
+        local eqWeapon = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
+        local weaponType = eqWeapon.type.records[eqWeapon.recordId].type
+        if weaponType ~= types.Weapon.TYPE.MarksmanCrossbow then
+            currentAnimState = nil
+        end
+    end
+
     -- drain fatigue stuff
     local rateKey = fatigueRates[currentAnimState]
     if rateKey then
