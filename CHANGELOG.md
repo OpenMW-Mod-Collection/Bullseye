@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.9
+
+- Fixed yet another throwing weapon handling error. Not in the ammo retrieval department
+
 ## 1.1.8
 
 - Fixed crossbow reload fatigue drain initiating when changing weapons

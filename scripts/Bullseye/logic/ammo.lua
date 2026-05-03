@@ -9,6 +9,7 @@ local sectionAmmoRetrieval = storage.globalSection("SettingsBullseye_ammoRetriev
 function AmmoHandler(attack)
     if not attack.successful
         or attack.sourceType ~= I.Combat.ATTACK_SOURCE_TYPES.Ranged
+        or not attack.ammo
     then
         return
     end
