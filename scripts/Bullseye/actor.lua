@@ -25,6 +25,8 @@ local function hitHandler(attack)
     if not attack.successful
         or attack.sourceType ~= I.Combat.ATTACK_SOURCE_TYPES.Ranged
         or attack.attacker.type ~= types.Player
+        or attack.damage.health == 0
+        or attack.ngarde_perfectParry
     then
         return
     end

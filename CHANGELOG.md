@@ -1,8 +1,13 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.1.10
+
+- Added more early returns to attack handler
+- As a result, you shouldn't get headshot SFX when parrying an attack with N'garde
+
 ## 1.1.9
 
-- Fixed yet another throwing weapon handling error. Not in the ammo retrieval department
+- Fixed yet another throwing weapon handling error. Now in the ammo retrieval department
 
 ## 1.1.8
 

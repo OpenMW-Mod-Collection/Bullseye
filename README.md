@@ -72,6 +72,12 @@ Compatible with any mods.
 
 If there is a mod in your modlist that affects the `fProjectileThrownStoreChance` GMST, `BullseyeGMSTs.omwaddon` needs to be loaded after it. While it is not critical, you might experience ammo duplication in corpses. TL;DR: load `BullseyeGMSTs.omwaddon` after any combat-affecting mods or simply last.
 
+### Load order
+
+Mods which need to be loaded after Bullseye:
+
+- [N'garde](https://www.nexusmods.com/morrowind/mods/58658) by MrArrean
+
 ### Soft Incompatibilities
 
 - [Headshots](https://www.nexusmods.com/morrowind/mods/57406) by me - Already implemented here
