@@ -66,6 +66,7 @@ local function hitHandler(attack)
     end
 
     attack.damage.health = attack.damage.health * damageModifier
+    attack.attacker:sendEvent("Bullseye_hit", damageModifier)
 end
 
 local function modifyFight()

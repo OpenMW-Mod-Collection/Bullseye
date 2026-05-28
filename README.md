@@ -14,6 +14,7 @@ Archers should control the battlefield through positioning and distance, while w
 
 - Damage multiplier based on attack distance _(does not affect thrown weapons)_
 - Headshot damage multiplier
+- Marksman skill gain scaled with the final damage multiplier
 - Marksman debuff while moving
 - Marksman buff while sneaking
 

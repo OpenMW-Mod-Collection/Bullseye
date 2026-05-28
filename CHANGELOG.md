@@ -1,5 +1,10 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.2
+
+- Made damage multiplier scale the skill gain
+- Improved sneak buff and movement debuff handling
+
 ## 1.1.10
 
 - Added more early returns to attack handler
