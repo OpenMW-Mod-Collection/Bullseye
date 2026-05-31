@@ -115,7 +115,6 @@ I.Settings.registerGroup {
             description = "distanceDamageFalloff_desc",
             renderer = 'number',
             default = 1,
-            min = 0,
         },
         {
             key = 'distanceDamageBuildup',
@@ -123,7 +122,6 @@ I.Settings.registerGroup {
             description = "distanceDamageBuildup_desc",
             renderer = 'number',
             default = .25,
-            min = 0,
         },
         {
             key  = 'headshotMultiplier',
@@ -131,7 +129,6 @@ I.Settings.registerGroup {
             description = "headshotMultiplier_desc",
             renderer = 'number',
             default = .5,
-            min = 0,
         },
         {
             key  = 'maxTotalMult',
@@ -153,7 +150,6 @@ I.Settings.registerGroup {
             description = "headshotSFXVolume_desc",
             renderer = 'number',
             default = 1,
-            min = 0,
         },
         {
             key = 'showMultMessage',

@@ -1,5 +1,10 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.2.1
+
+- Ucapped most of the settings
+- Fixed near miss aggro
+
 ## 1.2
 
 - Made damage multiplier scale the skill gain

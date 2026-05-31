@@ -1,0 +1,2 @@
+- Text popups near crosshair
+- Fix near miss aggro
