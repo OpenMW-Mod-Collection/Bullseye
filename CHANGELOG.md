@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.2.2
+
+- Fixed near miss aggro. This time for sure
+
 ## 1.2.1
 
 - Ucapped most of the settings

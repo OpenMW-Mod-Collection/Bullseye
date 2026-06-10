@@ -17,16 +17,17 @@ local function arrowLanded(eventData)
     local arrowPos = eventData.position
     for _, actor in ipairs(world.activeActors) do
         local distance = (actor.position - arrowPos):length()
-        local isDead = actor.type.isDead(actor)
         if distance > sectionNearHit:get("aggroDistance")
-            or isDead
-            or not actor.isValid(actor)
-            or actor.type == types.Player
+            or actor.type.isDead(actor)
+            or not actor:isValid()
+            or types.Player.objectIsInstance(actor)
+            -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
+            or actor.type.stats.ai.fight(actor) < 83
         then
             goto continue
         end
 
-        actor:sendEvent("Bullseye_modifyFight")
+        actor:sendEvent("StartAIPackage", { type = "Combat", target = eventData.actor })
 
         ::continue::
     end

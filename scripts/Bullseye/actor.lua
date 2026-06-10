@@ -69,19 +69,5 @@ local function hitHandler(attack)
     attack.attacker:sendEvent("Bullseye_hit", damageModifier)
 end
 
-local function modifyFight()
-    -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
-    local fight = self.type.stats.ai.fight(self)
-    if fight.modified >= 70 then
-        fight.modifier = fight.modifier + 100
-    end
-end
-
 I.Combat.addOnHitHandler(AmmoHandler)
 I.Combat.addOnHitHandler(hitHandler)
-
-return {
-    eventHandlers = {
-        Bullseye_modifyFight = modifyFight,
-    }
-}
