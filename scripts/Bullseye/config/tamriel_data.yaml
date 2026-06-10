@@ -1,0 +1,48 @@
+source: Tamriel_Data
+
+whitelisted_models:
+  - pc_minotaur_01
+  - pc_minotaur_02
+  - pc_stridentbird
+  - pc_minotaurbarr01
+  - tr_dwemer
+  - tr_dwe_colos_01
+  - tr_golem_mud_vo
+  - tr_gremlin_01
+  - tr_gremlin_02
+  - tr_gremlin_03
+  - tr_gremlin_04
+  - tr_gremlin_05
+  - tr_kobold_01
+  - tr_landdreugh
+  - pc_sload_01
+  - tr_troll_armor_01
+  - tr_troll_armor_02
+  - tr_troll_armor_03
+  - tr_troll_armor_04
+  - tr_troll_cave01
+  - tr_troll_cave02
+  - tr_troll_frost01
+  - tr_troll_frost02
+  - tr_troll_frost03
+  - tr_troll_frost04
+  - sky_wereboar_01
+  - sky_werewolf_01
+  - tr_goblin_blind_01
+  - tr_goblin_blind_02
+  - tr_goblin_blind_03
+  - tr_goblin_blind_04
+  - tr_goblinshaman
+  - sky_goblinthr_01
+  - sky_hagraven_01
+  - sky_minotaur_01
+  - tr_canyonthresher
+  - tr_cr_ashfowl_01
+  - tr_swamp_troll
+  - sky_giant
+  - pi_roc01
+  - sky_koglingadult
+  - sky_koglingelder
+
+blacklisted_models:
+  - tr_skeleton_headless

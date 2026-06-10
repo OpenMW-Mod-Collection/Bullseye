@@ -1,0 +1,27 @@
+source: vanilla
+
+whitelisted_models:
+  - almalexia
+  - almalexia_warrior
+  - byagram
+  - cr_draugr
+  - draugrlord
+  - frostgiant
+  - goblin01
+  - goblin02
+  - goblin03
+  - golden saint
+  - ice troll
+  - iceminion
+  - icemraider
+  - kwama warrior
+  - lordvivec
+  - sphere_centurions
+  - spherearcher
+  - spriggan
+  - steam_centurions
+  - udyrfrykte
+  - skinnpc # werewolf
+
+blacklisted_models:
+  - undeadwolf_2

@@ -89,10 +89,21 @@ Mods which need to be loaded after Bullseye:
 
 - [Arrow Stick](https://www.nexusmods.com/morrowind/mods/58299) 1.5 or newer - Optional, load order doesn't matter
 
-### Supported Mods (Headshot Whitelist)
+### Supported Mods (Headshots)
 
 - [Tamriel_Data](https://www.nexusmods.com/morrowind/mods/44537) by PTR Team
 - [OAAB_Data](https://www.nexusmods.com/morrowind/mods/49042) by OAAB_Data Team
+
+Headshot black- and whitelists can be expanded by creating new .yaml files in `scripts/Bullseye/config`. Here's a schema example:
+
+```yaml
+# all fields are optional
+whitelisted_models:
+  - pc_minotaur_01
+  - pc_minotaur_02
+blacklisted_models:
+  - tr_skeleton_headless
+```
 
 ### Recommendations
 

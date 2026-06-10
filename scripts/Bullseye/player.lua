@@ -1,14 +1,17 @@
+---@diagnostic disable: param-type-mismatch
 local self = require("openmw.self")
 local I = require("openmw.interfaces")
 local time = require("openmw_aux.time")
 local storage = require("openmw.storage")
 local ambient = require("openmw.ambient")
 local types = require("openmw.types")
+local async = require("openmw.async")
 
 require("scripts.Bullseye.logic.ammo")
+local settingsCache = require("scripts.Bullseye.utils.settingsCache")
 
-local sectionPlayerStats = storage.globalSection("SettingsBullseye_playerStats")
-local sectionFatigue = storage.globalSection("SettingsBullseye_fatigue")
+local settingsStats = settingsCache.new(storage.globalSection("SettingsBullseye_playerStats"), async)
+local settingsFatigue = settingsCache.new(storage.globalSection("SettingsBullseye_fatigue"), async)
 
 local movementStatuses = {
     idling   = "idling",
@@ -43,7 +46,7 @@ local movementEffect = {
     [movementStatuses.idling] = function() end,
 
     [movementStatuses.moving] = function(direction)
-        local debuff = sectionPlayerStats:get("movementDebuff")
+        local debuff = settingsStats.movementDebuff
         if direction == -1 then
             -- cap removal to what we actually applied so partial healing
             -- in the last frame can't flip the stat into a net buff
@@ -58,7 +61,7 @@ local movementEffect = {
 
     [movementStatuses.sneaking] = function(direction)
         marksman.modifier = marksman.modifier
-            + sectionPlayerStats:get("sneakBuff")
+            + settingsStats.sneakBuff
             * direction
     end,
 }
@@ -125,7 +128,7 @@ local function onUpdate(dt)
     -- drain fatigue stuff
     local rateKey = fatigueRates[currentAnimState]
     if rateKey then
-        drainFatigue(dt, sectionFatigue:get(rateKey))
+        drainFatigue(dt, settingsFatigue[rateKey])
     end
 end
 
@@ -179,7 +182,7 @@ I.AnimationController.addTextKeyHandler("bowandarrow", function(_, key)
         bowHoldTimerId = bowHoldTimerId + 1
 
         time.newSimulationTimer(
-            sectionFatigue:get("bowFatigueDrainDelay"),
+            settingsFatigue.bowFatigueDrainDelay,
             bowstringHeldTooLongCallback,
             bowHoldTimerId
         )

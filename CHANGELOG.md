@@ -1,11 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
-## 1.2.2
+## 1.3
 
-- Fixed near miss aggro. This time for sure
-
-## 1.2.1
-
+- Moved headshot black- and whitelists to yamls for scalability and future-proffing
+- Optimized settings calls
 - Ucapped most of the settings
 - Fixed near miss aggro
 

@@ -1,0 +1,4 @@
+source: OAAB_Data
+
+whitelisted_models:
+  - cent_sphere_chute

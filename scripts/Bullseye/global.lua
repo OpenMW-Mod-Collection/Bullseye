@@ -1,8 +1,12 @@
+---@diagnostic disable: param-type-mismatch
 local world = require("openmw.world")
 local types = require("openmw.types")
 local storage = require("openmw.storage")
+local async = require("openmw.async")
 
-local sectionNearHit = storage.globalSection("SettingsBullseye_nearHit")
+local settingsCache = require("scripts.Bullseye.utils.settingsCache")
+
+local settingsNearHit = settingsCache.new(storage.globalSection("SettingsBullseye_nearHit"), async)
 
 local function retrieveAmmo(eventData)
     local ammoItem = world.createObject(eventData.itemRecordId, 1)
@@ -11,13 +15,13 @@ local function retrieveAmmo(eventData)
 end
 
 local function arrowLanded(eventData)
-    local aggroEnabled = sectionNearHit:get("nearHitAggroEnabled")
+    local aggroEnabled = settingsNearHit.nearHitAggroEnabled
     if not aggroEnabled then return end
 
     local arrowPos = eventData.position
     for _, actor in ipairs(world.activeActors) do
         local distance = (actor.position - arrowPos):length()
-        if distance > sectionNearHit:get("aggroDistance")
+        if distance > settingsNearHit.aggroDistance
             or actor.type.isDead(actor)
             or not actor:isValid()
             or types.Player.objectIsInstance(actor)

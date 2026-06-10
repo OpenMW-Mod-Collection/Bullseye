@@ -1,23 +1,26 @@
+---@diagnostic disable: param-type-mismatch
 local I = require("openmw.interfaces")
 local types = require("openmw.types")
 local self = require("openmw.self")
 local storage = require("openmw.storage")
+local async = require("openmw.async")
 
 require("scripts.Bullseye.logic.headshots")
 require("scripts.Bullseye.logic.ammo")
+local settingsCache = require("scripts.Bullseye.utils.settingsCache")
 
-local sectionDamageMult = storage.globalSection("SettingsBullseye_damageMult")
+local settingsDamageMult = settingsCache.new(storage.globalSection("SettingsBullseye_damageMult"), async)
 
 local function getDistanceModifier(distance)
-    local maxDist = sectionDamageMult:get("defaultDmgMaxDistance")
-    local minDist = sectionDamageMult:get("defaultDmgMinDistance")
+    local maxDist = settingsDamageMult.defaultDmgMaxDistance
+    local minDist = settingsDamageMult.defaultDmgMinDistance
 
     if minDist <= distance and distance < maxDist then
         return 0
     elseif distance < minDist then
-        return -1 * (minDist - distance) / 1000 * sectionDamageMult:get("distanceDamageFalloff")
+        return -1 * (minDist - distance) / 1000 * settingsDamageMult.distanceDamageFalloff
     elseif maxDist <= distance then
-        return (distance - maxDist) / 1000 * sectionDamageMult:get("distanceDamageBuildup")
+        return (distance - maxDist) / 1000 * settingsDamageMult.distanceDamageBuildup
     end
 end
 
@@ -38,13 +41,14 @@ local function hitHandler(attack)
     local distMod = isThrown and 0 or getDistanceModifier(distance)
 
     local headMod = HeadshotSuccessful(self, attack.hitPos)
-        and sectionDamageMult:get("headshotMultiplier") or 0
+        and settingsDamageMult.headshotMultiplier
+        or 0
 
-    local damageModifier = sectionDamageMult:get("baseMult") + distMod + headMod
-    damageModifier = math.max(sectionDamageMult:get("minTotalMult"), damageModifier)
-    damageModifier = math.min(sectionDamageMult:get("maxTotalMult"), damageModifier)
+    local damageModifier = settingsDamageMult.baseMult + distMod + headMod
+    damageModifier = math.max(settingsDamageMult.minTotalMult, damageModifier)
+    damageModifier = math.min(settingsDamageMult.maxTotalMult, damageModifier)
 
-    if sectionDamageMult:get("showMultMessage") then
+    if settingsDamageMult.showMultMessage then
         local headshotLine = headMod == 0
             and "" or string.format("\nHeadshot mult: %.2fx", headMod)
 
@@ -60,7 +64,7 @@ local function hitHandler(attack)
         })
     end
 
-    local headshotVolume = sectionDamageMult:get("playHeadshotSFX")
+    local headshotVolume = settingsDamageMult.playHeadshotSFX
     if headMod ~= 0 and headshotVolume ~= 0 then
         attack.attacker:sendEvent("Bullseye_PlayHeadshotSFX", headshotVolume)
     end
