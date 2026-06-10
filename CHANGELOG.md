@@ -2,7 +2,7 @@
 
 ## 1.3
 
-- Moved headshot black- and whitelists to yamls for scalability and future-proffing
+- Moved headshot black- and whitelists to yamls for scalability and future-proofing
 - Optimized settings calls
 - Ucapped most of the settings
 - Fixed near miss aggro

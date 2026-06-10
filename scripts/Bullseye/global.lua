@@ -5,8 +5,20 @@ local storage = require("openmw.storage")
 local async = require("openmw.async")
 
 local settingsCache = require("scripts.Bullseye.utils.settingsCache")
+require("scripts.Bullseye.headshotConfig.parser")
 
 local settingsNearHit = settingsCache.new(storage.globalSection("SettingsBullseye_nearHit"), async)
+local actorScript = "scripts/Bullseye/actor.lua"
+
+local function onActorActive(actor)
+    if types.Player.objectIsInstance(actor)
+        or actor:hasScript(actorScript)
+    then
+        return
+    end
+
+    actor:addScript(actorScript, { headshottable = Headshottable(actor) })
+end
 
 local function retrieveAmmo(eventData)
     local ammoItem = world.createObject(eventData.itemRecordId, 1)
@@ -38,6 +50,9 @@ local function arrowLanded(eventData)
 end
 
 return {
+    engineHandlers = {
+        onActorActive = onActorActive,
+    },
     eventHandlers = {
         Bullseye_retrieveAmmo = retrieveAmmo,
         -- requires Arrow Stick mod to work

@@ -10,6 +10,12 @@ require("scripts.Bullseye.logic.ammo")
 local settingsCache = require("scripts.Bullseye.utils.settingsCache")
 
 local settingsDamageMult = settingsCache.new(storage.globalSection("SettingsBullseye_damageMult"), async)
+local headshottable = false
+
+local function onInit(data)
+    if not data then return end
+    headshottable = data.headshottable or headshottable
+end
 
 local function getDistanceModifier(distance)
     local maxDist = settingsDamageMult.defaultDmgMaxDistance
@@ -40,7 +46,7 @@ local function hitHandler(attack)
     local distance = (attack.attacker.position - self.position):length()
     local distMod = isThrown and 0 or getDistanceModifier(distance)
 
-    local headMod = HeadshotSuccessful(self, attack.hitPos)
+    local headMod = (headshottable and HeadshotSuccessful(self, attack.hitPos))
         and settingsDamageMult.headshotMultiplier
         or 0
 
@@ -75,3 +81,9 @@ end
 
 I.Combat.addOnHitHandler(AmmoHandler)
 I.Combat.addOnHitHandler(hitHandler)
+
+return {
+    engineHandlers = {
+        onInit = onInit,
+    },
+}
