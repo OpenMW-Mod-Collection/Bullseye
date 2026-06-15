@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.1
+
+- Added an option to disable damage modifier scaling XP gain
+
 ## 1.3
 
 - Moved headshot black- and whitelists to yamls for scalability and future-proofing

@@ -12,6 +12,7 @@ local settingsCache = require("scripts.Bullseye.utils.settingsCache")
 
 local settingsStats = settingsCache.new(storage.globalSection("SettingsBullseye_playerStats"), async)
 local settingsFatigue = settingsCache.new(storage.globalSection("SettingsBullseye_fatigue"), async)
+local settingsDamageMult = settingsCache.new(storage.globalSection("SettingsBullseye_damageMult"), async)
 
 local movementStatuses = {
     idling   = "idling",
@@ -216,10 +217,12 @@ I.SkillProgression.addSkillUsedHandler(function(skillID, options)
         return
     end
 
-    if options.skillGain then
-        options.skillGain = options.skillGain * lastDamageMult
-    else
-        options.scale = options.scale + lastDamageMult
+    if settingsDamageMult.xpMod then
+        if options.skillGain then
+            options.skillGain = options.skillGain * lastDamageMult
+        else
+            options.scale = options.scale + lastDamageMult
+        end
     end
 end)
 

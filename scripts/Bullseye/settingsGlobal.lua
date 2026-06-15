@@ -145,6 +145,13 @@ I.Settings.registerGroup {
             min = 0,
         },
         {
+            key  = 'xpMod',
+            name = 'xpMod_name',
+            description = 'xpMod_desc',
+            renderer = 'checkbox',
+            default = true,
+        },
+        {
             key = 'headshotSFXVolume',
             name = 'headshotSFXVolume_name',
             description = "headshotSFXVolume_desc",

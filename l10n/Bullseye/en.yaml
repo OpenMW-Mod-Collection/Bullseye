@@ -63,6 +63,13 @@ headshotMultiplier_desc: |
   General rule of thumb: if actor's head is in the upper part of the bounding box, it likely can be headshotted.
 maxTotalMult_name: Max Total Mult
 minTotalMult_name: Min Total Mult
+xpMod_name: Scale XP Gain with Damage Multiplier 
+xpMod_desc: |
+  If enabled, your damage multiplier will also scale Marksman XP gain by the same amount.
+
+  For example: if the shot did 1.5x damage, it will grant you 1.5x Marksman XP.
+
+  Note: due to implementation, XP scaling is always delayed by 1 attack. For your 3rd attack you will get scaling from 2nd attack, 4th attack will use 3rd attack scaling and so on.
 headshotSFXVolume_name: Headshot SFX Volume
 headshotSFXVolume_desc: Set it to 0 to disable.
 showMultMessage_name: Show Multiplier Messages
