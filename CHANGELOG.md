@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.2
+
+- Fixed an error occuring on Near Hits
+
 ## 1.3.1
 
 - Added an option to disable damage modifier scaling XP gain

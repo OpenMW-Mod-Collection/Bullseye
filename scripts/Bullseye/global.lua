@@ -38,7 +38,7 @@ local function arrowLanded(eventData)
             or not actor:isValid()
             or types.Player.objectIsInstance(actor)
             -- https://en.uesp.net/wiki/Morrowind:NPCs#Fight
-            or actor.type.stats.ai.fight(actor) < 83
+            or actor.type.stats.ai.fight(actor).modified < 83
         then
             goto continue
         end
