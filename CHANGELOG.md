@@ -1,8 +1,12 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.3
+
+- Fixed an issue causing continuous fatigue drain when switching weapons during the crossbow reload
+
 ## 1.3.2
 
-- Fixed an error occuring on Near Hits
+- Fixed an error occurring on Near Hits
 
 ## 1.3.1
 

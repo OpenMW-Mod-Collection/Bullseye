@@ -119,7 +119,7 @@ local function onUpdate(dt)
         latestMovementStatus = currMovementStatus
     end
 
-    if eqIsWeapon and currentAnimState == fatigueRates.crossbow then
+    if eqIsWeapon and currentAnimState == animStates.crossbow then
         local weaponType = eqWeapon.type.records[eqWeapon.recordId].type
         if weaponType ~= types.Weapon.TYPE.MarksmanCrossbow then
             currentAnimState = nil
