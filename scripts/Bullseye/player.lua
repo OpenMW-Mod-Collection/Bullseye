@@ -134,6 +134,9 @@ local function onUpdate(dt)
 end
 
 local function onSave()
+    -- reset movement effect so that it stacks correctly on script reload
+    movementEffect[latestMovementStatus](-1)
+
     return {
         latestMovementStatus = latestMovementStatus,
         currMovementStatus = currMovementStatus,

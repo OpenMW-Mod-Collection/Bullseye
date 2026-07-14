@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.4
+
+- Fixed movement debuffs stacking on save/script reload
+
 ## 1.3.3
 
 - Fixed an issue causing continuous fatigue drain when switching weapons during the crossbow reload
