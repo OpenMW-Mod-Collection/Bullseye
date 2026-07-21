@@ -68,7 +68,7 @@ local movementEffect = {
 }
 
 local function updateCurrentMovementStatus(eqWeapon)
-    local stance       = self.type.getStance(self)
+    local stance = self.type.getStance(self)
     local weaponStance = stance == self.type.STANCE.Weapon
     if not weaponStance then
         currMovementStatus = movementStatuses.idling
@@ -149,6 +149,8 @@ local function onLoad(data)
     latestMovementStatus = data.latestMovementStatus or latestMovementStatus
     currMovementStatus = data.currMovementStatus or currMovementStatus
     lastDamageMult = data.lastDamageMult or lastDamageMult
+
+    movementEffect[currMovementStatus](1)
 end
 
 -- +----------------+

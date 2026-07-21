@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.5
+
+- Fixed movement debuffs stacking on save/script reload. For sure this time
+
 ## 1.3.4
 
 - Fixed movement debuffs stacking on save/script reload
