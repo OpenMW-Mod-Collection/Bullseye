@@ -134,12 +134,10 @@ local function onUpdate(dt)
 end
 
 local function onSave()
-    -- reset movement effect so that it stacks correctly on script reload
-    movementEffect[latestMovementStatus](-1)
-
     return {
         latestMovementStatus = latestMovementStatus,
         currMovementStatus = currMovementStatus,
+        targetMovementDamage = targetMovementDamage,
         lastDamageMult = lastDamageMult,
     }
 end
@@ -148,9 +146,8 @@ local function onLoad(data)
     if not data then return end
     latestMovementStatus = data.latestMovementStatus or latestMovementStatus
     currMovementStatus = data.currMovementStatus or currMovementStatus
+    targetMovementDamage = data.targetMovementDamage or targetMovementDamage
     lastDamageMult = data.lastDamageMult or lastDamageMult
-
-    movementEffect[currMovementStatus](1)
 end
 
 -- +----------------+

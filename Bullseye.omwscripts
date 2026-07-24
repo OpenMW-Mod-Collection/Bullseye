@@ -1,7 +1,7 @@
+MENU: scripts/Bullseye/settingsMenu.lua
+GLOBAL: scripts/Bullseye/settingsGlobal.lua
+
 PLAYER: scripts/Bullseye/player.lua
 GLOBAL: scripts/Bullseye/global.lua
 
 CUSTOM: scripts/Bullseye/actor.lua
-
-MENU: scripts/Bullseye/settingsMenu.lua
-GLOBAL: scripts/Bullseye/settingsGlobal.lua
