@@ -42,6 +42,9 @@ local currentAnimState = nil
 local bowHoldTimerId = 0
 local lastDamageMult = 1
 local targetMovementDamage = 0
+local lastWeapon = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
+local lastWeaponType = types.Weapon.objectIsInstance(lastWeapon)
+    and lastWeapon.type.records[lastWeapon.recordId].type
 
 local movementEffect = {
     [movementStatuses.idling] = function() end,
@@ -108,6 +111,7 @@ local function onUpdate(dt)
 
     local eqWeapon = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
     local eqIsWeapon = eqWeapon and types.Weapon.objectIsInstance(eqWeapon)
+    local eqWeaponType = eqIsWeapon and eqWeapon.type.records[eqWeapon.recordId].type
 
     -- movement status stuff
     if eqIsWeapon then
@@ -127,9 +131,14 @@ local function onUpdate(dt)
     end
 
     -- drain fatigue stuff
-    local rateKey = fatigueRates[currentAnimState]
-    if rateKey then
-        drainFatigue(dt, settingsFatigue[rateKey])
+    if eqWeaponType and eqWeaponType == lastWeaponType then
+        local rateKey = fatigueRates[currentAnimState]
+        if rateKey then
+            drainFatigue(dt, settingsFatigue[rateKey])
+        end
+    else
+        lastWeaponType = eqWeaponType
+        currentAnimState = nil
     end
 end
 

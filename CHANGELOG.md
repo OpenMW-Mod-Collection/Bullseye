@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.7
+
+- Fixed faitgue drain not stopping when switching weapons mid-animation
+
 ## 1.3.6
 
 - Fixed movement debuffs stacking on save/script reload. FOR THE FINAL TIME
