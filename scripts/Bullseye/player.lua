@@ -43,7 +43,8 @@ local bowHoldTimerId = 0
 local lastDamageMult = 1
 local targetMovementDamage = 0
 local lastWeapon = self.type.getEquipment(self, self.type.EQUIPMENT_SLOT.CarriedRight)
-local lastWeaponType = types.Weapon.objectIsInstance(lastWeapon)
+local lastWeaponType = lastWeapon
+    and types.Weapon.objectIsInstance(lastWeapon)
     and lastWeapon.type.records[lastWeapon.recordId].type
 
 local movementEffect = {

@@ -1,5 +1,9 @@
 # Bullseye - Marksman Overhaul (OpenMW)
 
+## 1.3.8
+
+- Fixed a regression from the previous update: mod no longer crashes when no weapon is equipped while loading a save
+
 ## 1.3.7
 
 - Fixed fatigue drain not stopping when switching weapons mid-animation
