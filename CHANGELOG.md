@@ -2,7 +2,7 @@
 
 ## 1.3.7
 
-- Fixed faitgue drain not stopping when switching weapons mid-animation
+- Fixed fatigue drain not stopping when switching weapons mid-animation
 
 ## 1.3.6
 
